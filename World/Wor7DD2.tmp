@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://knbv887cg4w8"]
+
+[ext_resource type="PackedScene" uid="uid://d1847wp53wjva" path="res://World/DungeonGenerator/dungeon_generator.tscn" id="1_5mf58"]
+[ext_resource type="Script" path="res://World/Levels/DungeonWorld.gd" id="1_6anyp"]
+[ext_resource type="PackedScene" uid="uid://pbum2smckftr" path="res://World/Units/Player/Player.tscn" id="2_m668v"]
+[ext_resource type="Script" path="res://World/Units/Player/Camera.gd" id="3_hnt05"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_6anyp")
+
+[node name="DungeonGenerator" parent="." instance=ExtResource("1_5mf58")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+script = ExtResource("3_hnt05")
+
+[node name="Player" parent="." instance=ExtResource("2_m668v")]

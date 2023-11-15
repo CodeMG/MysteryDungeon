@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://pbum2smckftr"]
+
+[ext_resource type="Script" path="res://World/Units/Player/PlayerUnit.gd" id="1_wqnml"]
+[ext_resource type="Texture2D" uid="uid://bfdoohfk4wvj3" path="res://Assets/2DPixelDungeon/character and tileset/pixil-frame-0(13).png" id="2_odhae"]
+[ext_resource type="Texture2D" uid="uid://dvltgxcgi2836" path="res://UI/Theme/Assets/GUISprite_upscaled.png" id="3_to2on"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vv7x2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e6csp"]
+line_spacing = 0.0
+font_size = 51
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djam4"]
+atlas = ExtResource("3_to2on")
+region = Rect2(324, 448, 248, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gk60u"]
+atlas = ExtResource("3_to2on")
+region = Rect2(324, 384, 248, 64)
+
+[node name="Player" type="Area2D"]
+process_mode = 3
+z_index = 4
+script = ExtResource("1_wqnml")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_odhae")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_vv7x2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "test"
+label_settings = SubResource("LabelSettings_e6csp")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+rounded = true
+texture_under = SubResource("AtlasTexture_djam4")
+texture_progress = SubResource("AtlasTexture_gk60u")

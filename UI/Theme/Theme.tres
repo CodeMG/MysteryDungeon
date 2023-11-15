@@ -1,0 +1,63 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://c246mba1g7c1g"]
+
+[ext_resource type="Texture2D" uid="uid://dvltgxcgi2836" path="res://UI/Theme/Assets/GUISprite_upscaled.png" id="1_1crjh"]
+[ext_resource type="FontFile" uid="uid://cgjv6xpxo0v56" path="res://UI/Theme/Assets/DungeonFont.ttf" id="1_e2xfu"]
+[ext_resource type="Texture2D" uid="uid://8kdespy7wpbw" path="res://UI/Theme/Assets/Newstuff_upscaled.png" id="2_jw2vl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o05im"]
+atlas = ExtResource("1_1crjh")
+region = Rect2(1268, 116, 88, 88)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m7yia"]
+texture = SubResource("AtlasTexture_o05im")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gaqqp"]
+atlas = ExtResource("1_1crjh")
+region = Rect2(1268, 116, 88, 88)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65l5i"]
+texture = SubResource("AtlasTexture_gaqqp")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(0.854902, 0.854902, 0.854902, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61tpm"]
+atlas = ExtResource("1_1crjh")
+region = Rect2(1352, 116, 88, 88)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rxmgt"]
+texture = SubResource("AtlasTexture_61tpm")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypfmu"]
+atlas = ExtResource("2_jw2vl")
+region = Rect2(248, 16, 216, 216)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owyg7"]
+texture = SubResource("AtlasTexture_ypfmu")
+texture_margin_left = 28.0
+texture_margin_top = 28.0
+texture_margin_right = 28.0
+texture_margin_bottom = 28.0
+
+[resource]
+default_font = ExtResource("1_e2xfu")
+Button/styles/hover = SubResource("StyleBoxTexture_m7yia")
+Button/styles/normal = SubResource("StyleBoxTexture_65l5i")
+Button/styles/pressed = SubResource("StyleBoxTexture_rxmgt")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_owyg7")

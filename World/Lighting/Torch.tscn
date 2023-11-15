@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba5af7n2680gu"]
+
+[ext_resource type="Texture2D" uid="uid://dyllvjmsvgcip" path="res://Assets/2DPixelDungeon/character and tileset/2d_lights_and_shadows_neutral_point_light.webp" id="1_kxn7v"]
+[ext_resource type="Texture2D" uid="uid://i6m78yfydux8" path="res://Assets/2DPixelDungeon/items and trap_animation/torch/torch_1.png" id="2_kk7ch"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cnchs"]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8dh7m"]
+light_mode = 2
+
+[node name="Torch" type="PointLight2D"]
+material = SubResource("CanvasItemMaterial_cnchs")
+scale = Vector2(5, 5)
+color = Color(0.878431, 0.235294, 0, 1)
+shadow_enabled = true
+texture = ExtResource("1_kxn7v")
+texture_scale = 0.06
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_8dh7m")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_kk7ch")

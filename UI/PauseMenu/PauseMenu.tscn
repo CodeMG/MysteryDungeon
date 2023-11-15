@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://b34ehagl7kyh"]
+
+[ext_resource type="Script" path="res://UI/PauseMenu/PauseMenu.gd" id="1_f4ekd"]
+[ext_resource type="PackedScene" uid="uid://c76vxluc3ld3b" path="res://UI/InventoryMenu/Inventory.tscn" id="2_vn1d2"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+process_mode = 3
+
+[node name="PauseMenu" type="PanelContainer" parent="."]
+visible = false
+top_level = true
+z_index = 10
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = -106.5
+offset_right = 400.0
+offset_bottom = 106.5
+grow_vertical = 2
+script = ExtResource("1_f4ekd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="Skills" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Hallo"
+
+[node name="Passives" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Passives
+"
+
+[node name="Items" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Items"
+
+[node name="SpecialActions" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Special Actions"
+
+[node name="Log" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Log"
+
+[node name="Options" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Exit" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Inventory" parent="PauseMenu/HBoxContainer" instance=ExtResource("2_vn1d2")]
+visible = false
+layout_mode = 2

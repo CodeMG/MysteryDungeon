@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddo2yko327m4g"]
+
+[ext_resource type="Texture2D" uid="uid://cusmgh7k5xaoy" path="res://Assets/2DPixelDungeon/Character_animation/monsters_idle/skeleton1/v2/skeleton_v2_1.png" id="1_36uir"]
+[ext_resource type="Script" path="res://World/Units/Enemy/Enemy.gd" id="1_n73op"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xipn2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5gupk"]
+light_mode = 2
+
+[node name="BasicEnemy" type="Area2D"]
+script = ExtResource("1_n73op")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xipn2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_5gupk")
+texture = ExtResource("1_36uir")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
