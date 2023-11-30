@@ -1,5 +1,8 @@
 extends Node
 
+signal action_performed
+
+#The States that the game can be in
 enum States{
 	INIT,
 	LOAD,
@@ -7,19 +10,26 @@ enum States{
 	END_CHECK,
 	END
 }
-
-var world
-
-var units = []
-
 var current_state : States
 
-var game_active: bool = false
+var world #The current world being played
+var units = [] #A container for the current units that follow the round based movement
+var game_active: bool = false #A bool to check if the game has started (for Menus and stuff)
 
 func _ready():
 	current_state = States.INIT
+	Globals.scene_change.connect(reset) #If we change the scene then we reset the game loop
 	
 func _process(delta):
+	#Check if a Unit has been freed
+	var tmp = []
+	for u in units:
+		if is_instance_valid(u):
+			tmp.append(u)
+	units.clear()
+	units.append_array(tmp)
+	
+	#State machine
 	if current_state == States.INIT:
 		#Initialize Game
 		
@@ -36,10 +46,11 @@ func _process(delta):
 		#Check whoose turn it is, and allow them to act
 		if units.size() == 0: return
 		var current_unit = get_current_unit()
-		var action_performed = current_unit.action()
-		if action_performed:
+		var performed = current_unit.action()
+		if performed:
 			current_unit.time_counter -= current_unit.time_to_action
 			current_state = States.END_CHECK
+			
 		else:
 			pass
 	if current_state == States.END_CHECK:
@@ -50,6 +61,7 @@ func _process(delta):
 				return
 		
 		current_state = States.UNIT_TURN
+		action_performed.emit()
 	if current_state == States.END:
 		#End game
 		pass
@@ -57,8 +69,6 @@ func _process(delta):
 func add_unit(unit : Unit):
 	units.append(unit)
 	
-
-
 #Check which units turn it is going to be
 func get_current_unit() -> Unit:
 	var array = get_actionable_units()
@@ -73,16 +83,22 @@ func get_current_unit() -> Unit:
 		for unit in units:
 			unit.time_counter += unit.attributes.speed
 		return get_current_unit() #recursive call until a unit can act
-
 func get_actionable_units() -> Array:
 	var array = []
 	for unit in units:
 		if unit.time_counter > unit.time_to_action:
 			array.append(unit)
 	return array
-	
+
+
 func start_new_level():
+	#Check if the end is reached
+	if world.current_level == world.amount_of_levels:
+			get_tree().change_scene_to_file("res://Overworld/Overworld.tscn")
 	current_state = States.INIT
 
 func set_world(w):
 	world = w
+
+func reset():
+	current_state = States.INIT

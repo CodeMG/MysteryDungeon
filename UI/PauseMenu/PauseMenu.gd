@@ -18,23 +18,29 @@ func _ready():
 	Items.pressed.connect(on_items)
 	
 func _process(delta):
-	if visible:
-		get_tree().paused = true
-	else:
-		get_tree().paused = false
-	if Input.is_action_just_pressed("pause"):
+	var focus_owner = get_viewport().gui_get_focus_owner()
+	if focus_owner == null:
+		Skills.grab_focus()
+	
+func _unhandled_input(event):
+	if event.is_action_pressed("pause"):
 		if inventory.visible:
 			inventory.hide()
 		else:
-			if visible:hide()
+			if visible:
+				hide()
+				get_tree().paused = false
 			else: 
 				show()
+				get_tree().paused = true
 				Skills.grab_focus()
-	if Input.is_action_just_pressed("ui_cancel"):
+	elif event.is_action_pressed("ui_cancel"):
 		if inventory.visible:
 			inventory.hide()
 		else:
-			if visible:hide()
+			if visible:
+				hide()
+				get_tree().paused = false
 	
 func on_skills():
 	pass

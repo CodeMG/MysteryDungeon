@@ -2,25 +2,38 @@ class_name PlayerUnit extends Unit
 
 signal moved
 
+#UI
 @onready var healthLabel:Label = $CanvasLayer/Control/HBoxContainer/Label
 @onready var healthBar:TextureProgressBar = $CanvasLayer/Control/HBoxContainer/TextureProgressBar
+@onready var levelNumber:Label = $CanvasLayer/Control/HBoxContainer/LevelNumber
+
+#Animation
+@onready var corner_anim:AnimatedSprite2D = $Corner_Anim
+@onready var idle_anim:AnimatedSprite2D = $Idle_Anim
 
 func _init():
 	super()
 
 func _ready():
-	super._ready()
 	moved.emit()
-	attributes.current_health *= 0.5
+	attributes.max_health = 100000
+	attributes.current_health = 100000
 	update_health_UI()
+	leveled_up.connect(update_ui_level) 
 	
 	
 func _process(delta):
 	update_health_UI()
+	switch_idle_anim(direction)
 	
 func action()->bool:
+	#if get_viewport().gui_get_focus_owner() != null:
+	#	return false
 	if get_tree().paused:
 		return false
+	#Pass
+	if Input.is_action_pressed("Pass"):
+		return true
 	#Running
 	action_time = 0.1
 	if Input.is_action_pressed("run"):
@@ -28,31 +41,37 @@ func action()->bool:
 	#Walking
 	var targetPos = self.position
 	if Input.is_action_pressed("move_right"):
-		targetPos = self.position + Vector2(16,0)
-		direction = Vector2(1,0)
+		targetPos = targetPos + Vector2(16,0)
 	elif Input.is_action_pressed("move_left"):
-		targetPos = self.position - Vector2(16,0)
-		direction = Vector2(-1,0)
-	elif Input.is_action_pressed("move_up"):
-		targetPos = self.position - Vector2(0,16)
-		direction = Vector2(0,-1)
+		targetPos = targetPos - Vector2(16,0)
+	if Input.is_action_pressed("move_up"):
+		targetPos = targetPos - Vector2(0,16)
 	elif Input.is_action_pressed("move_down"):
-		targetPos = self.position + Vector2(0,16)
-		direction = Vector2(0,1)
-	if wall_at_pos(Vector2i(targetPos)) || enemy_at_pos(Vector2i(targetPos)) || npc_at_pos(Vector2i(targetPos)):
+		targetPos = targetPos + Vector2(0,16)
+		
+	var d = targetPos - self.position
+	if d.length() > 0:
+		direction = Vector2(sign(d.x),sign(d.y))
+		print(direction)
+	if Input.is_action_pressed("move_diagonal"):
+		corner_anim.visible = true
+		print(targetPos.length())
+		if (targetPos-self.position).length() <= 16.1:
+			targetPos = self.position
+	elif Input.is_action_just_released("move_diagonal"):
+		corner_anim.visible = false
+
+	if targetPos != self.position and not Input.is_action_pressed("show_grid"):
+		if node_world.wall_at_pos(Vector2i(targetPos)) || node_world.enemy_at_pos(Vector2i(targetPos)) || node_world.npc_at_pos(Vector2i(targetPos)):
 			return false
-	if targetPos != self.position:
-		animations_running = true
-		var tween = self.create_tween()
-		tween.tween_property(self,"position",targetPos,action_time)
-		tween.tween_callback(animation_finished)
+		move(targetPos)
 		return true
 	#Attack
 	if Input.is_action_pressed("attack"):
 		var currentPos = self.position
 		targetPos = self.position + Vector2(16,16)*direction
-		var enemy = enemy_at_pos(Vector2i(targetPos))
-		var npc = npc_at_pos(Vector2i(targetPos))
+		var enemy = node_world.enemy_at_pos(Vector2i(targetPos))
+		var npc = node_world.npc_at_pos(Vector2i(targetPos))
 		if enemy != null:
 			var damage = DamageInfo.new()
 			damage.physical_damage = 10
@@ -92,3 +111,17 @@ func dialogue_finished(dialogueResource):
 func animation_finished():
 	moved.emit()
 	super.animation_finished()
+
+func update_ui_level(level:int):
+	levelNumber.text = str(level)
+
+func switch_idle_anim(dir:Vector2):
+	var name = "Wizard_Idle_("
+	if dir.x >= 0:
+		idle_anim.flip_h = false
+		name += str(dir.x) + " " + str(dir.y) + ")"
+	else:
+		idle_anim.flip_h = true
+		name += str(dir.x*-1) + " " + str(dir.y) + ")"
+	
+	idle_anim.animation = name 

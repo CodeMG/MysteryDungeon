@@ -10,6 +10,8 @@ region = Rect2(144, 48, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhyti"]
 
 [node name="Staircase" type="Area2D"]
+process_mode = 3
+collision_layer = 8
 script = ExtResource("1_qrgxn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -28,4 +30,9 @@ offset_bottom = 40.0
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="Control"]
 initial_position = 2
+size = Vector2i(270, 130)
+unresizable = true
+borderless = true
+always_on_top = true
+popup_window = true
 dialog_text = "Do you want to continue to the next level?"

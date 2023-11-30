@@ -16,8 +16,8 @@ func _unhandled_input(event):
 	get_viewport().set_input_as_handled()
 	
 func on_start():
-	get_tree().change_scene_to_file("res://World/World.tscn")
-	#get_tree().change_scene_to_file("res://Overworld/Overworld.tscn")
+	#get_tree().change_scene_to_file("res://World/World.tscn")
+	get_tree().change_scene_to_file("res://Overworld/Overworld.tscn")
 
 func on_options():
 	pass

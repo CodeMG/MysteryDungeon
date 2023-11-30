@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://c246mba1g7c1g"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://c246mba1g7c1g"]
 
 [ext_resource type="Texture2D" uid="uid://dvltgxcgi2836" path="res://UI/Theme/Assets/GUISprite_upscaled.png" id="1_1crjh"]
 [ext_resource type="FontFile" uid="uid://cgjv6xpxo0v56" path="res://UI/Theme/Assets/DungeonFont.ttf" id="1_e2xfu"]
@@ -48,7 +48,30 @@ axis_stretch_vertical = 2
 atlas = ExtResource("2_jw2vl")
 region = Rect2(248, 16, 216, 216)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6jjru"]
+texture = SubResource("AtlasTexture_ypfmu")
+texture_margin_left = 28.0
+texture_margin_top = 28.0
+texture_margin_right = 28.0
+texture_margin_bottom = 28.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s082t"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owyg7"]
+texture = SubResource("AtlasTexture_ypfmu")
+texture_margin_left = 28.0
+texture_margin_top = 28.0
+texture_margin_right = 28.0
+texture_margin_bottom = 28.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_635va"]
+texture = SubResource("AtlasTexture_ypfmu")
+texture_margin_left = 28.0
+texture_margin_top = 28.0
+texture_margin_right = 28.0
+texture_margin_bottom = 28.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lyydf"]
 texture = SubResource("AtlasTexture_ypfmu")
 texture_margin_left = 28.0
 texture_margin_top = 28.0
@@ -57,7 +80,17 @@ texture_margin_bottom = 28.0
 
 [resource]
 default_font = ExtResource("1_e2xfu")
+default_font_size = 35
 Button/styles/hover = SubResource("StyleBoxTexture_m7yia")
 Button/styles/normal = SubResource("StyleBoxTexture_65l5i")
 Button/styles/pressed = SubResource("StyleBoxTexture_rxmgt")
+Label/font_sizes/font_size = 35
+LineEdit/font_sizes/font_size = 50
+LineEdit/styles/normal = SubResource("StyleBoxTexture_6jjru")
+LineEdit/styles/read_only = SubResource("StyleBoxTexture_6jjru")
+Panel/styles/panel = SubResource("StyleBoxEmpty_s082t")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_owyg7")
+RichTextLabel/styles/normal = SubResource("StyleBoxTexture_635va")
+TextEdit/font_sizes/font_size = 50
+TextEdit/styles/normal = SubResource("StyleBoxTexture_lyydf")
+TextEdit/styles/read_only = SubResource("StyleBoxTexture_lyydf")

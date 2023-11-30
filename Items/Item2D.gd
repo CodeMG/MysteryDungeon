@@ -15,10 +15,10 @@ func update():
 	sprite.texture = item.icon
 	self.name = item.name
 
-func on_collision(area: Unit):
+func on_collision(area):
 	print("Test")
 	if area.name == "Player":
-		item.owner = area
+		item.owner = area as Unit
 		Inventory.add_item(item)
 		queue_free()
 	

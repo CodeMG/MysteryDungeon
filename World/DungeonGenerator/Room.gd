@@ -12,6 +12,8 @@ func make_room(pos, dimension):
 	
 func get_extent() -> Rect2i:
 	var extent = Rect2i()
-	extent.position = Vector2i(((position - (size/2))/16).floor()*16) + Vector2i(3*16,3*16)
-	extent.end = Vector2i(((position + (size/2))/16).floor()*16) 
+	var c = Globals.CELL_SIZE
+	extent.position = Vector2i(((position-(size/2))/c).floor()*c) + Vector2i(c,c)*2
+	extent.size = Vector2i((size/c).floor()*c) - Vector2i(c,c)*3
+		
 	return extent

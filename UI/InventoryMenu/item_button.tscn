@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd8tmmg550ivy"]
+
+[ext_resource type="Texture2D" uid="uid://d25jej3ywbot" path="res://icon.svg" id="1_jf63p"]
+[ext_resource type="Script" path="res://UI/InventoryMenu/ItemButton.gd" id="1_l3j18"]
+
+[node name="ItemButton" type="HBoxContainer"]
+script = ExtResource("1_l3j18")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_jf63p")
+expand_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3

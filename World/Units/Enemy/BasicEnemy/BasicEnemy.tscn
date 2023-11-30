@@ -5,7 +5,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xipn2"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5gupk"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_slhaa"]
 light_mode = 2
 
 [node name="BasicEnemy" type="Area2D"]
@@ -15,7 +15,7 @@ script = ExtResource("1_n73op")
 shape = SubResource("RectangleShape2D_xipn2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_5gupk")
+material = SubResource("CanvasItemMaterial_slhaa")
 texture = ExtResource("1_36uir")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

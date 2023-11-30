@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://cswc3kx5kp13v"]
+
+[ext_resource type="Script" path="res://UI/Minimap/Minimap.gd" id="1_0xj8a"]
+[ext_resource type="Script" path="res://UI/Minimap/MinimapCamera.gd" id="3_3en64"]
+[ext_resource type="TileSet" uid="uid://bnvthajtcsfh0" path="res://Tilesets/MinimapTileset.tres" id="3_qw73u"]
+
+[node name="MinimapLayer" type="CanvasLayer"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -800.0
+offset_bottom = 450.0
+grow_horizontal = 0
+stretch = true
+script = ExtResource("1_0xj8a")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(800, 450)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+visibility_layer = 524288
+editor_draw_limits = true
+script = ExtResource("3_3en64")
+
+[node name="Minimap" type="TileMap" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+visibility_layer = 524288
+z_index = 5
+tile_set = ExtResource("3_qw73u")
+format = 2
+layer_0/name = "Minimap"
+layer_1/name = "POI"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array(1769471, 262145, 4, 1703934, 262145, 4, 1703933, 262145, 4, 1703932, 262145, 4, 1638395, 262145, 4, 1638394, 262145, 4, 1572857, 262145, 4, 1572856, 262145, 4, 1507320, 262145, 4, 1441784, 262145, 4, 1376248, 262145, 4, 1310713, 262145, 4, 1245178, 262145, 4, 1179643, 262145, 4, 1114108, 262145, 4, 1114109, 262145, 4, 1048574, 262145, 4, 1048575, 262145, 4, 1441791, 262145, 4, 1376254, 262145, 4, 1376253, 262145, 4, 1441789, 262145, 4, 1507325, 262145, 4, 1572861, 262145, 4, 1638398, 262145, 4, 1703935, 262145, 4)

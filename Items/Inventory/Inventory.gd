@@ -19,3 +19,8 @@ func remove_item(index:int) -> bool:
 	itemInventory.remove_at(index)
 	item_inventory_changed.emit()
 	return true
+
+func erase_item(item:Item) -> bool:
+	itemInventory.erase(item)
+	item_inventory_changed.emit()
+	return true

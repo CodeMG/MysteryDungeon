@@ -6,10 +6,10 @@ var stairs = preload("res://World/Levels/Staircase/Staircase.tscn")
 
 #Generation
 var tile_size = 32
-var num_rooms = 50
+var num_rooms = 10
 var min_size = 4
 var max_size = 10
-var hspread = 400
+var hspread = 100
 var cull = 0.5
 
 #Tiles
@@ -18,16 +18,12 @@ var wall_tile: Vector2i
 var stair_tile: Vector2i
 var stair_exists: bool = true
 var path
+
+var stair_pos
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-
-func set_ground(tile):
-	ground_tile = tile
-func set_wall(tile):
-	wall_tile = tile
-func set_stairs(tile):
-	stair_tile = tile
 
 func generate():
 	#Reset
@@ -172,12 +168,18 @@ func place_stairs():
 	var room_count = $Rooms.get_child_count()
 	var spawn_room = randi_range(0,room_count-1)
 	var room = $Rooms.get_children()[spawn_room]
-	var room_position = room.position
+	var room_position = (room.position/16).floor()*16
 	var room_extent = room.size
+	room_position -= room_extent*0.5
 	#Map.set_cell(2,Map.local_to_map(room_position),0,stair_tile)
 	var node = stairs.instantiate()
-	node.position = (room_position/16).floor()*16
+	var c = Globals.CELL_SIZE
+	var x = randi_range(2,(room_extent.x/c)-2)*c
+	var y = randi_range(2,(room_extent.y/c)-2)*c
+	node.position = room_position + Vector2(x,y)
 	$EventObjects.add_child(node)
+	stair_pos = node.position
+	
 
 func get_room(position:Vector2)->Rect2i:
 	var posInt = Vector2i(position.floor())
@@ -186,3 +188,8 @@ func get_room(position:Vector2)->Rect2i:
 			return room.get_extent()
 	return Rect2i(0,0,0,0)
 	
+func get_rooms() -> Array[Rect2i]:
+	var arr:Array[Rect2i]
+	for room in $Rooms.get_children():
+		arr.append(room.get_extent())
+	return arr

@@ -1,5 +1,6 @@
 ~ Start
-Bob: [[Hi|Hello|Howdy]], this is some dialogue.
-- Cool
-- How are you
+Bob: [[Hi|Hello|Howdy]], do you want to enter the Dungeon?
+- Yes
+	do Globals.start_DungeonWorld()
+- No
 => END

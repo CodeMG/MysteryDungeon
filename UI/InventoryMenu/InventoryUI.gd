@@ -1,18 +1,22 @@
 extends PanelContainer
 
-@onready var itemList:ItemList = $ItemList
-
+@onready var items = $Items
+var itemButton = preload("res://UI/InventoryMenu/item_button.tscn")
 func _ready():
 	Inventory.item_inventory_changed.connect(update_ItemList)
 
 func _process(delta):
-	if Input.is_action_just_pressed("attack"):
-		var arr = itemList.get_selected_items()
-		if arr.size() != 0:
-			Inventory.itemInventory[arr[0]].use()
-			Inventory.remove_item(arr[0])
+	pass
 		
 func update_ItemList():
-	itemList.clear()
+	for i in items.get_children():
+		i.queue_free()
 	for item in Inventory.itemInventory:
-		itemList.add_item(item.name,item.icon,true)
+		create_itemButton(item)
+
+func create_itemButton(item:Item):
+	var ib:ItemButton = itemButton.instantiate()
+	items.add_child(ib)
+	ib.item = item
+	ib.update()
+

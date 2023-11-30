@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2jacdmdl3b2y"]
+
+[ext_resource type="Texture2D" uid="uid://d25jej3ywbot" path="res://icon.svg" id="1_gab6e"]
+
+[sub_resource type="Gradient" id="Gradient_5y61a"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rmhqj"]
+gradient = SubResource("Gradient_5y61a")
+width = 16
+height = 16
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l8ipy"]
+light_mode = 2
+
+[node name="MinimapLight" type="PointLight2D"]
+scale = Vector2(10, 10)
+color = Color(1, 1, 1, 0)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_rmhqj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_l8ipy")
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("1_gab6e")

@@ -10,6 +10,7 @@ func _ready():
 	player.moved.connect(update_camera)
 	update_camera()
 
+
 func update_camera():
 	target = player.position
 	start = position

@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c76vxluc3ld3b"]
+[gd_scene load_steps=2 format=3 uid="uid://c76vxluc3ld3b"]
 
 [ext_resource type="Script" path="res://UI/InventoryMenu/InventoryUI.gd" id="1_jp2hk"]
-[ext_resource type="Script" path="res://UI/InventoryMenu/ItemList.gd" id="2_ya4sf"]
 
 [node name="Inventory" type="PanelContainer"]
 custom_minimum_size = Vector2(800, 200)
@@ -18,13 +17,5 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jp2hk")
 
-[node name="ItemList" type="ItemList" parent="."]
-texture_filter = 1
+[node name="Items" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-allow_reselect = true
-allow_search = false
-max_text_lines = 3
-auto_height = true
-text_overrun_behavior = 0
-script = ExtResource("2_ya4sf")

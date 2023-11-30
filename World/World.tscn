@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://knbv887cg4w8"]
+[gd_scene load_steps=13 format=3 uid="uid://knbv887cg4w8"]
 
 [ext_resource type="PackedScene" uid="uid://d1847wp53wjva" path="res://World/DungeonGenerator/dungeon_generator.tscn" id="1_5mf58"]
-[ext_resource type="Script" path="res://World/Levels/DungeonWorld.gd" id="1_6anyp"]
+[ext_resource type="Script" path="res://World/Levels/DungeonWorld.gd" id="1_lc326"]
 [ext_resource type="PackedScene" uid="uid://pbum2smckftr" path="res://World/Units/Player/Player.tscn" id="2_m668v"]
 [ext_resource type="TileSet" uid="uid://wdxd72tmnfr7" path="res://Tilesets/DungeonTileset.tres" id="3_dsd3y"]
 [ext_resource type="PackedScene" uid="uid://dcxkag5uidxvs" path="res://World/Units/Player/camera_2d.tscn" id="3_odrho"]
+[ext_resource type="Script" path="res://World/GridHighlighting.gd" id="4_bwpwa"]
+[ext_resource type="PackedScene" uid="uid://cswc3kx5kp13v" path="res://UI/Minimap/minimap_layer.tscn" id="4_ppwpg"]
 [ext_resource type="Script" path="res://World/Lighting/Light.gd" id="5_e4y15"]
+[ext_resource type="PackedScene" uid="uid://camaj5a2jroq" path="res://UI/LoadingScreen/loading_screen.tscn" id="7_5s8v6"]
+[ext_resource type="PackedScene" uid="uid://dqgnhvcnt1iu6" path="res://World/Tools/room_visualizer.tscn" id="8_k2470"]
 
 [sub_resource type="Gradient" id="Gradient_pcjak"]
 offsets = PackedFloat32Array(0, 0.004329, 1)
@@ -17,14 +21,16 @@ width = 16
 height = 16
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_6anyp")
+script = ExtResource("1_lc326")
 
 [node name="DungeonGenerator" parent="." instance=ExtResource("1_5mf58")]
+unique_name_in_owner = true
 
 [node name="TileMap" type="TileMap" parent="."]
+unique_name_in_owner = true
 show_behind_parent = true
 texture_filter = 1
-position = Vector2(8, 8)
+position = Vector2(-8, -8)
 tile_set = ExtResource("3_dsd3y")
 format = 2
 layer_0/name = "Ground"
@@ -43,18 +49,24 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array()
 
+[node name="GridDrawer" type="Node2D" parent="TileMap"]
+script = ExtResource("4_bwpwa")
+
 [node name="Camera2D" parent="." instance=ExtResource("3_odrho")]
 
 [node name="Units" type="Node" parent="."]
 
 [node name="Enemies" type="Node" parent="Units"]
+unique_name_in_owner = true
 
 [node name="Player" type="Node" parent="Units"]
 
 [node name="Player" parent="Units/Player" instance=ExtResource("2_m668v")]
+unique_name_in_owner = true
 light_mask = 3
 
 [node name="NPCs" type="Node" parent="Units"]
+unique_name_in_owner = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.486275, 0.486275, 0.486275, 1)
@@ -66,3 +78,18 @@ texture = SubResource("GradientTexture2D_eeopt")
 script = ExtResource("5_e4y15")
 
 [node name="Items" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Effects" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="LoadingScreen" parent="." instance=ExtResource("7_5s8v6")]
+unique_name_in_owner = true
+
+[node name="Tools" type="Node" parent="."]
+
+[node name="RoomVisualizer" parent="Tools" instance=ExtResource("8_k2470")]
+visible = false
+
+[node name="MinimapLayer" parent="." instance=ExtResource("4_ppwpg")]
+unique_name_in_owner = true
