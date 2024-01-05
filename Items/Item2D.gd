@@ -10,15 +10,18 @@ func _init():
 
 func set_item(i:Item):
 	item = i
+	update()
 
 func update():
-	sprite.texture = item.icon
-	self.name = item.name
+	sprite.texture = item.source.icon
+	self.name = item.source.name
 
 func on_collision(area):
-	print("Test")
 	if area.name == "Player":
 		item.owner = area as Unit
-		Inventory.add_item(item)
+		if item is EquippableItem:
+			Inventory.add_equipment_item(item)
+		elif item is ConsumableItem:
+			Inventory.add_item(item)
 		queue_free()
 	

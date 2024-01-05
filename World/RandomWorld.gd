@@ -9,7 +9,7 @@ func create_level():
 		current_level += 1
 		clear_all()
 		#Loading Screen
-		node_loadingScreen.set_text(world_name + ": " + str(current_level))
+		node_loadingScreen.set_text(world_resource.name + ": " + str(current_level))
 		node_loadingScreen.show()
 		#ToDo set the level parameters here (roomcount etc.)
 		generator.generate()
@@ -17,6 +17,7 @@ func create_level():
 		position_player()
 		await get_tree().create_timer(0.5).timeout
 		node_minimap.draw_minimap()
+		spawn_items()
 		#Put all the rooms into the rooms array:
 		rooms = generator.get_rooms()
 		pathfinder = Globals.tilemap_to_AStarGrid2D(node_tilemap)

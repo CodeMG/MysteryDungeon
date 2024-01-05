@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Modifier" load_steps=2 format=3 uid="uid://dwyej0e22itle"]
+
+[ext_resource type="Script" path="res://Items/Modifier.gd" id="1_jdbgs"]
+
+[resource]
+script = ExtResource("1_jdbgs")
+description = "%s increased physical damage"
+type = 9
+amount = 50.0

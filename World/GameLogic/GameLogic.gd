@@ -1,5 +1,6 @@
 extends Node
 
+signal game_started
 signal action_performed
 
 #The States that the game can be in
@@ -41,6 +42,7 @@ func _process(delta):
 	if current_state == States.LOAD:
 		#Load things and make sure everything is ready
 		world.create_level()
+		game_started.emit()
 		current_state = States.UNIT_TURN
 	if current_state == States.UNIT_TURN:
 		#Check whoose turn it is, and allow them to act
@@ -93,7 +95,7 @@ func get_actionable_units() -> Array:
 
 func start_new_level():
 	#Check if the end is reached
-	if world.current_level == world.amount_of_levels:
+	if world.current_level == world.world_resource.max_levels:
 			get_tree().change_scene_to_file("res://Overworld/Overworld.tscn")
 	current_state = States.INIT
 

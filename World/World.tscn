@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://knbv887cg4w8"]
+[gd_scene load_steps=15 format=3 uid="uid://knbv887cg4w8"]
 
 [ext_resource type="PackedScene" uid="uid://d1847wp53wjva" path="res://World/DungeonGenerator/dungeon_generator.tscn" id="1_5mf58"]
-[ext_resource type="Script" path="res://World/Levels/DungeonWorld.gd" id="1_lc326"]
+[ext_resource type="Script" path="res://World/RandomWorld.gd" id="1_t6mmk"]
+[ext_resource type="Resource" uid="uid://cqr1dv1tu8wtb" path="res://World/Worlds/CursedTower.tres" id="2_4ccv0"]
 [ext_resource type="PackedScene" uid="uid://pbum2smckftr" path="res://World/Units/Player/Player.tscn" id="2_m668v"]
 [ext_resource type="TileSet" uid="uid://wdxd72tmnfr7" path="res://Tilesets/DungeonTileset.tres" id="3_dsd3y"]
 [ext_resource type="PackedScene" uid="uid://dcxkag5uidxvs" path="res://World/Units/Player/camera_2d.tscn" id="3_odrho"]
@@ -10,6 +11,7 @@
 [ext_resource type="Script" path="res://World/Lighting/Light.gd" id="5_e4y15"]
 [ext_resource type="PackedScene" uid="uid://camaj5a2jroq" path="res://UI/LoadingScreen/loading_screen.tscn" id="7_5s8v6"]
 [ext_resource type="PackedScene" uid="uid://dqgnhvcnt1iu6" path="res://World/Tools/room_visualizer.tscn" id="8_k2470"]
+[ext_resource type="AudioStream" uid="uid://b74yt2hryp2pw" path="res://Assets/Music/1- Midnight Dreams.ogg" id="12_3ky4m"]
 
 [sub_resource type="Gradient" id="Gradient_pcjak"]
 offsets = PackedFloat32Array(0, 0.004329, 1)
@@ -21,7 +23,8 @@ width = 16
 height = 16
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_lc326")
+script = ExtResource("1_t6mmk")
+world_resource = ExtResource("2_4ccv0")
 
 [node name="DungeonGenerator" parent="." instance=ExtResource("1_5mf58")]
 unique_name_in_owner = true
@@ -85,6 +88,7 @@ unique_name_in_owner = true
 
 [node name="LoadingScreen" parent="." instance=ExtResource("7_5s8v6")]
 unique_name_in_owner = true
+layer = 3
 
 [node name="Tools" type="Node" parent="."]
 
@@ -93,3 +97,8 @@ visible = false
 
 [node name="MinimapLayer" parent="." instance=ExtResource("4_ppwpg")]
 unique_name_in_owner = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("12_3ky4m")
+autoplay = true

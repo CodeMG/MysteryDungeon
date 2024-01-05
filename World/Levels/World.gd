@@ -7,6 +7,7 @@ const WALL_LAYER = 1
 #exports
 @export var randomly_generate:bool = true
 @export var rooms:Array[Rect2i]
+@export var world_resource:WorldResource
 
 #Tilemap
 @onready var node_tilemap = %TileMap
@@ -32,12 +33,11 @@ var enemy = preload("res://World/Units/Enemy/BasicEnemy/BasicEnemy.tscn")
 #Torch
 var torch = preload("res://World/Lighting/Torch.tscn")
 #Item
-var item = preload("res://Items/Item.tscn")
+var item_preset = preload("res://Items/Item.tscn")
+
 
 #worldspecific
-var world_name
-var amount_of_levels
-var amount_of_rooms
+
 var current_level = 0
 var pathfinder:AStarGrid2D
 
@@ -83,15 +83,8 @@ func spawn_enemy():
 	en.position = room_extent.position + Vector2i(x,y)
 	en.died.connect(node_player.receive_exp)
 
-#Most basic position_stairs function
-#func position_stairs():
-#	var room_count = $DungeonGenerator/Rooms.get_child_count()
-#	var spawn_room = randi_range(0,room_count)
-#	var room = $DungeonGenerator/Rooms.get_children()[spawn_room]
-#	var room_position = room.position
-#	var room_extent = room.size
-#	stairPos = tilemap.local_to_map(room_position)
-	
+
+
 func spawn_lightsource():
 	var room_extent = get_random_room() 
 	var tor = torch.instantiate()
@@ -102,14 +95,6 @@ func spawn_lightsource():
 	node_effects.add_child(tor)
 	tor.name = "Torch"
 	tor.position = room_extent.position + room_extent.size - Vector2i(Globals.CELL_SIZE,Globals.CELL_SIZE)
-
-func spawn_item():
-	var room_extent = get_random_room()
-	var it = item.instantiate()
-	$Items.add_child(it)
-	it.set_item(load("res://Items/Consumables/Apple.tres"))
-	it.update()
-	it.position = room_extent.position + Vector2i(32,32)
 
 func get_random_room():
 	var room_count = $DungeonGenerator/Rooms.get_child_count()
@@ -134,6 +119,41 @@ func get_room(position:Vector2)->Rect2i:
 func get_stairs():
 	return null
 	
+	
+##############Spawn functions#############################
+func spawn_items():
+	var array_of_items = world_resource.spawnable_items
+	var total_weights = world_resource.item_weight_padding
+	for item in array_of_items:
+		total_weights += item.weight
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var cells = node_tilemap.get_used_cells(GROUND_LAYER)
+	for cell in cells:
+		var i = rng.randi_range(0,total_weights-1)
+		if i < world_resource.item_weight_padding:
+			continue
+		var counter = world_resource.item_weight_padding
+		for item in array_of_items:
+			if i < counter+item.weight:
+				spawn_item(item,cell*Vector2i(Globals.CELL_SIZE,Globals.CELL_SIZE))
+				break
+			counter += item.weight
+
+func spawn_item(item:ItemResource, pos:Vector2i):
+	var item2d = item_preset.instantiate()
+	node_items.add_child(item2d)
+	var final_item
+	if item is EquippableItemResource:
+		final_item = EquippableItem.new()
+		final_item.source = item
+		final_item.generate_mods()
+	elif item is ConsumableItemResource:
+		final_item = ConsumableItem.new()
+		final_item.source = item
+	item2d.set_item(final_item)
+	item2d.position = pos
+
 ############### World info getters ##########################
 func wall_at_pos(pos:Vector2i) -> bool:
 	return !node_tilemap.get_cell_tile_data(WALL_LAYER,node_tilemap.local_to_map(pos)) == null

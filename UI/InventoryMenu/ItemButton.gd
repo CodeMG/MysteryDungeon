@@ -9,12 +9,22 @@ func _ready():
 	button.pressed.connect(on_pressed)
 
 func on_pressed():
-	item.use()
-	Inventory.erase_item(item)
+	if item is EquippableItem:
+		var check = Globals.player.equip_item(item)
+		if check:
+			Inventory.erase_equipment_item(item)
+		update()
+	elif item is ConsumableItem:
+		item.source.use()
+		Inventory.erase_item(item)
+	
+
+func focus():
+	button.grab_focus()
 
 func update():
-	set_icon(item.icon)
-	set_text(item.name)
+	set_icon(item.source.icon)  
+	set_text(item.source.name)
 
 func set_icon(icon:Texture2D):
 	textureRect.texture = icon

@@ -1,6 +1,6 @@
-class_name HealingItem extends ConsumableItem
+class_name HealingItemResource extends ConsumableItemResource
 
 @export var life:int
 
 func use():
-	owner.heal(life)
+	Globals.player.heal(life)

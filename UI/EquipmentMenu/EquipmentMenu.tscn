@@ -1,0 +1,349 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmtqnorj2efjj"]
+
+[ext_resource type="Texture2D" uid="uid://cphoo2b7v5t3g" path="res://Assets/MyStuff/UI/Helmet.png" id="1_0uvux"]
+[ext_resource type="Script" path="res://UI/EquipmentMenu/EquipmentUI.gd" id="1_gupjx"]
+[ext_resource type="Texture2D" uid="uid://dv62s56ppwcur" path="res://Assets/MyStuff/UI/Backpack.png" id="2_3i0wx"]
+[ext_resource type="PackedScene" uid="uid://c76vxluc3ld3b" path="res://UI/InventoryMenu/Inventory.tscn" id="2_k1fsd"]
+[ext_resource type="Texture2D" uid="uid://cwwofauasscru" path="res://Assets/MyStuff/UI/Bracelet.png" id="3_a75u2"]
+[ext_resource type="Texture2D" uid="uid://dokqygko1wpes" path="res://Assets/MyStuff/UI/BodyArmour.png" id="4_vs6sq"]
+[ext_resource type="Texture2D" uid="uid://by6jqsyvmb2lb" path="res://Assets/MyStuff/UI/Amulet.png" id="5_s8wmg"]
+[ext_resource type="Texture2D" uid="uid://bee06i4gqhhlp" path="res://Assets/MyStuff/UI/Gloves.png" id="6_g1hnp"]
+[ext_resource type="Texture2D" uid="uid://dlkklrur568xh" path="res://Assets/MyStuff/UI/Boots.png" id="7_uxko0"]
+[ext_resource type="Script" path="res://UI/InventoryMenu/ItemDescriptionUI.gd" id="10_gikdp"]
+
+[sub_resource type="Theme" id="Theme_8un6r"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_gupjx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -406.0
+offset_bottom = 324.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="EquipmentMenu" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/EquipmentMenu"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/EquipmentMenu/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+columns = 5
+
+[node name="Control" type="Control" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Helmet" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Helmet"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Helmet"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_0uvux")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Helmet"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Control3" type="Control" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Backpack" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Backpack"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Backpack"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("2_3i0wx")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Backpack"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Weapon1" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Weapon1"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Weapon1"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Weapon1"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="Bracelet" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Bracelet"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 48.0
+offset_bottom = 132.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Bracelet"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 48.0
+offset_bottom = 132.0
+texture = ExtResource("3_a75u2")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Bracelet"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 48.0
+offset_bottom = 132.0
+
+[node name="BodyArmour" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/BodyArmour"]
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/BodyArmour"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 96.0
+texture = ExtResource("4_vs6sq")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/BodyArmour"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 96.0
+
+[node name="Amulet" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Amulet"]
+layout_mode = 2
+offset_left = 16.0
+offset_right = 48.0
+offset_bottom = 32.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Amulet"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_right = 48.0
+offset_bottom = 32.0
+texture = ExtResource("5_s8wmg")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Amulet"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 16.0
+offset_right = 48.0
+offset_bottom = 32.0
+
+[node name="Weapon2" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Weapon2"]
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Weapon2"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Weapon2"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 128.0
+
+[node name="Control6" type="Control" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Gloves" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Gloves"]
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Gloves"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("6_g1hnp")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Gloves"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Control7" type="Control" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Boots" type="Button" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_8un6r")
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Boots"]
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Boots"]
+modulate = Color(1, 1, 1, 0.270588)
+texture_filter = 1
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("7_uxko0")
+
+[node name="Texture" type="TextureRect" parent="VBoxContainer/EquipmentMenu/HBoxContainer/GridContainer/Boots"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Inventory" parent="VBoxContainer" instance=ExtResource("2_k1fsd")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 760)
+layout_mode = 2
+itemInventory = false
+
+[node name="DescriptionBox" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_left = -800.0
+offset_top = 324.0
+offset_right = -400.0
+offset_bottom = 456.0
+script = ExtResource("10_gikdp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DescriptionBox"]
+layout_mode = 2
+
+[node name="DescriptionHead" type="RichTextLabel" parent="DescriptionBox/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Head"
+fit_content = true
+text_direction = 1
+structured_text_bidi_override = 6
+
+[node name="DescriptionBody" type="RichTextLabel" parent="DescriptionBox/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "Body"
+fit_content = true
+scroll_active = false

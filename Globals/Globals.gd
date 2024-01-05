@@ -2,10 +2,32 @@ extends Node
 
 signal scene_change
 
-#Game specific globals
+########################Important Enums######################
+enum EquipmentTypes{
+	HELMET = 0,
+	BACKPACK = 1,
+	WEAPON1 = 2,
+	WEAPON2 = 3,
+	BRACELETS = 4,
+	AMULET = 5,
+	BODY_ARMOUR = 6,
+	GLOVES = 7,
+	BOOTS = 8
+}
+
+###################Important References#####################
+var player:PlayerUnit
+
+###################Important Scenes##############################
+var fireball = preload("res://Skills/Fireball/Fireball.tscn")
+
+###################Important Resources##########################
+var modlist:Array[Modifier]
+
+#######################Game specific globals#############################
 var CELL_SIZE = 16
 
-#Flags
+##########################Flags####################################
 var has_met_DungeonMaster: bool = false
 
 #######################Events########################################
@@ -14,6 +36,22 @@ func start_DungeonWorld():
 	scene_change.emit()
 
 
+######################Init##############################
+func _ready():
+	init_modlist()
+
+func init_modlist():
+	var path = "res://Items/Modifiers/"
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file = dir.get_next()
+		while file != "":
+			var resource = load(path+file)
+			modlist.append(resource)
+			file = dir.get_next()
+	else:
+		print("MODIFIERS LIST NOT FOUND!!!!!!!!!!!!!!!!")
 
 #####################Helper functions######################################
 func tilemap_to_AStarGrid2D(tilemap:TileMap) -> AStarGrid2D:

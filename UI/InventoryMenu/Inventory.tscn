@@ -2,20 +2,23 @@
 
 [ext_resource type="Script" path="res://UI/InventoryMenu/InventoryUI.gd" id="1_jp2hk"]
 
-[node name="Inventory" type="PanelContainer"]
-custom_minimum_size = Vector2(800, 200)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -28.0
-offset_right = 28.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_jp2hk")
 
-[node name="Items" type="VBoxContainer" parent="."]
+[node name="Inventory" type="PanelContainer" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Inventory"]
+layout_mode = 2
+
+[node name="Items" type="VBoxContainer" parent="Inventory/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2

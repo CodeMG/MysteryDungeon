@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Modifier" load_steps=2 format=3 uid="uid://crx75b80377xv"]
+
+[ext_resource type="Script" path="res://Items/Modifier.gd" id="1_tvydg"]
+
+[resource]
+script = ExtResource("1_tvydg")
+description = "%s increased fire damage"
+type = 11
+amount = 50.0

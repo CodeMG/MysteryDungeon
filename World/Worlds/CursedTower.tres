@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WorldResource" load_steps=4 format=3 uid="uid://cqr1dv1tu8wtb"]
+
+[ext_resource type="Script" path="res://World/GameLogic/WorldResource.gd" id="1_ide14"]
+[ext_resource type="Resource" uid="uid://bjirqojeqio7b" path="res://Items/ItemResources/Equippables/Iron_Helmet.tres" id="2_mqt5l"]
+[ext_resource type="Resource" uid="uid://dmre5jqcwaa0b" path="res://Items/ItemResources/Consumables/Apple.tres" id="3_c8wa6"]
+
+[resource]
+script = ExtResource("1_ide14")
+name = "Cursed Tower"
+max_levels = 5
+min_rooms = 5
+max_rooms = 10
+terraintSet = 0
+terrain = 0
+item_weight_padding = 100000
+spawnable_items = Array[Resource("res://Items/ItemResource.gd")]([ExtResource("2_mqt5l"), ExtResource("3_c8wa6")])
+enemy_weight_padding = 0
+spawnable_enemies = Array[Resource("res://World/Units/Enemy/EnemyResource.gd")]([])

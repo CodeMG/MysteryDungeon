@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Modifier" load_steps=2 format=3 uid="uid://875q7gixrk40"]
+
+[ext_resource type="Script" path="res://Items/Modifier.gd" id="1_cw8cj"]
+
+[resource]
+script = ExtResource("1_cw8cj")
+description = "+ %s to armor"
+type = 21
+amount = 100.0

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HealingItemResource" load_steps=3 format=3 uid="uid://dmre5jqcwaa0b"]
+
+[ext_resource type="Texture2D" uid="uid://deneb8bboq5je" path="res://Assets/16x16 RPG Item Pack/Item__64.png" id="1_ieahb"]
+[ext_resource type="Script" path="res://Items/Consumables/HealingItem.gd" id="1_iv2b0"]
+
+[resource]
+script = ExtResource("1_iv2b0")
+life = 50
+stackable = true
+max_stack_size = 10
+name = "Apple"
+icon = ExtResource("1_ieahb")
+weight = 1000
+description = "Heals the User"

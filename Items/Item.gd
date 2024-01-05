@@ -1,7 +1,4 @@
-class_name Item extends Resource
+class_name Item
 
-@export var name:String
-@export var icon:Texture2D
-@export var owner:Unit
-@export var stackable:bool = false
-@export var max_stack_size:int = 1
+var owner:Unit
+var source:ItemResource

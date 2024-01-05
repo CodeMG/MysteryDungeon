@@ -1,8 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://pbum2smckftr"]
+[gd_scene load_steps=39 format=3 uid="uid://pbum2smckftr"]
 
 [ext_resource type="Script" path="res://World/Units/Player/PlayerUnit.gd" id="1_wqnml"]
 [ext_resource type="Texture2D" uid="uid://bfdoohfk4wvj3" path="res://Assets/2DPixelDungeon/character and tileset/pixil-frame-0(13).png" id="2_odhae"]
 [ext_resource type="Texture2D" uid="uid://dvltgxcgi2836" path="res://UI/Theme/Assets/GUISprite_upscaled.png" id="3_to2on"]
+[ext_resource type="PackedScene" uid="uid://b34ehagl7kyh" path="res://UI/PauseMenu/PauseMenu.tscn" id="4_daqq0"]
 [ext_resource type="Texture2D" uid="uid://8yys3ixi1225" path="res://Assets/MyStuff/Corner_Arrow.png" id="4_jboj1"]
 [ext_resource type="Texture2D" uid="uid://bndx88ahgdova" path="res://Assets/MyStuff/Wizard/Wizard_Idle_(0,1).png" id="5_nrm62"]
 [ext_resource type="Texture2D" uid="uid://def2huyig734g" path="res://Assets/MyStuff/Wizard/Wizard_Idle_(0,-1).png" id="6_doxm4"]
@@ -233,38 +234,88 @@ texture = ExtResource("2_odhae")
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_vv7x2")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 process_mode = 3
+layer = 2
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 10
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = 15
 anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="PauseMenu" parent="HUD/HBoxContainer" instance=ExtResource("4_daqq0")]
+layout_direction = 2
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HUD/HBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BottomBar" type="AspectRatioContainer" parent="HUD/HBoxContainer/Control"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+offset_right = 236.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="HUD/HBoxContainer/Control/BottomBar"]
+layout_mode = 2
+columns = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+layout_mode = 2
+
+[node name="PanelContainer4" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+layout_mode = 2
+
+[node name="TopBar" type="Control" parent="HUD/HBoxContainer/Control"]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1024.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/HBoxContainer/Control/TopBar"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Level" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Level" type="Label" parent="HUD/HBoxContainer/Control/TopBar/HBoxContainer"]
 layout_mode = 2
 text = "Level: "
 label_settings = SubResource("LabelSettings_cd68w")
 
-[node name="LevelNumber" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="LevelNumber" type="Label" parent="HUD/HBoxContainer/Control/TopBar/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_g6xyf")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Label" type="Label" parent="HUD/HBoxContainer/Control/TopBar/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "test"
 label_settings = SubResource("LabelSettings_e6csp")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD/HBoxContainer/Control/TopBar/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 rounded = true
 texture_under = SubResource("AtlasTexture_djam4")

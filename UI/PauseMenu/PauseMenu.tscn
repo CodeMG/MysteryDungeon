@@ -1,61 +1,86 @@
-[gd_scene load_steps=3 format=3 uid="uid://b34ehagl7kyh"]
+[gd_scene load_steps=4 format=3 uid="uid://b34ehagl7kyh"]
 
 [ext_resource type="Script" path="res://UI/PauseMenu/PauseMenu.gd" id="1_f4ekd"]
 [ext_resource type="PackedScene" uid="uid://c76vxluc3ld3b" path="res://UI/InventoryMenu/Inventory.tscn" id="2_vn1d2"]
+[ext_resource type="PackedScene" uid="uid://dmtqnorj2efjj" path="res://UI/EquipmentMenu/EquipmentMenu.tscn" id="3_dgqkr"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
-process_mode = 3
-
-[node name="PauseMenu" type="PanelContainer" parent="."]
+[node name="PauseMenu" type="Control"]
 visible = false
-top_level = true
-z_index = 10
-custom_minimum_size = Vector2(200, 0)
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 200.0
-offset_top = -106.5
-offset_right = 400.0
-offset_bottom = 106.5
-grow_vertical = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 228.0
 script = ExtResource("1_f4ekd")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PauseWindow" type="PanelContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+top_level = true
+custom_minimum_size = Vector2(200, 1080)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PauseWindow"]
 layout_mode = 2
+alignment = 1
 
-[node name="Skills" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Skills" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Hallo"
+text = "Skills"
 
-[node name="Passives" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Passives" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Passives
 "
 
-[node name="Items" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Items" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Items"
 
-[node name="SpecialActions" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Equipment" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Special Actions"
+text = "Equipment"
 
-[node name="Log" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Log" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Log"
 
-[node name="Options" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Options"
 
-[node name="Exit" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="Exit" type="Button" parent="HBoxContainer/PauseWindow/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
 
-[node name="Inventory" parent="PauseMenu/HBoxContainer" instance=ExtResource("2_vn1d2")]
+[node name="InventoryWindow" parent="." instance=ExtResource("2_vn1d2")]
+unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(400, 1080)
 layout_mode = 2
+offset_left = 1352.0
+offset_right = 1752.0
+offset_bottom = 1080.0
+
+[node name="EquipmentMenu" parent="." instance=ExtResource("3_dgqkr")]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1980.0
+offset_right = 1980.0
+grow_horizontal = 1
+grow_vertical = 1
