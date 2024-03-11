@@ -18,6 +18,7 @@ func create_level():
 		await get_tree().create_timer(0.5).timeout
 		node_minimap.draw_minimap()
 		spawn_items()
+		spawn_enemies()
 		#Put all the rooms into the rooms array:
 		rooms = generator.get_rooms()
 		pathfinder = Globals.tilemap_to_AStarGrid2D(node_tilemap)

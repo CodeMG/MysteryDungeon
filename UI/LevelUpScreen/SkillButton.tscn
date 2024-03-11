@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dusj8t01g1y60"]
+
+[ext_resource type="Script" path="res://UI/LevelUpScreen/SkillButton.gd" id="1_e2rfg"]
+[ext_resource type="Texture2D" uid="uid://d25jej3ywbot" path="res://icon.svg" id="1_g7x7j"]
+
+[node name="Button" type="Button"]
+offset_right = 160.0
+offset_bottom = 160.0
+icon = ExtResource("1_g7x7j")
+flat = true
+alignment = 0
+icon_alignment = 1
+script = ExtResource("1_e2rfg")

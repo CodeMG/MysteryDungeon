@@ -3,24 +3,24 @@
 [ext_resource type="Script" path="res://World/Levels/Staircase/Staircase.gd" id="1_qrgxn"]
 [ext_resource type="Texture2D" uid="uid://in461b24bxmj" path="res://Assets/2DPixelDungeon/character and tileset/Dungeon_Tileset.png" id="2_k57hd"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhyti"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdg5u"]
 atlas = ExtResource("2_k57hd")
 region = Rect2(144, 48, 16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhyti"]
 
 [node name="Staircase" type="Area2D"]
 process_mode = 3
 collision_layer = 8
 script = ExtResource("1_qrgxn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 3
-texture = SubResource("AtlasTexture_hdg5u")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_vhyti")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
+texture = SubResource("AtlasTexture_hdg5u")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

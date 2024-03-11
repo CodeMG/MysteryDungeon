@@ -1,7 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://pbum2smckftr"]
+[gd_scene load_steps=42 format=3 uid="uid://pbum2smckftr"]
 
 [ext_resource type="Script" path="res://World/Units/Player/PlayerUnit.gd" id="1_wqnml"]
+[ext_resource type="Resource" uid="uid://dta65m1dx0wfb" path="res://World/Units/Player/level_up_attributes.tres" id="2_ngg7g"]
 [ext_resource type="Texture2D" uid="uid://bfdoohfk4wvj3" path="res://Assets/2DPixelDungeon/character and tileset/pixil-frame-0(13).png" id="2_odhae"]
+[ext_resource type="Resource" uid="uid://cmnm1u5jhvjgi" path="res://World/Units/Player/player_attributes.tres" id="3_17lv6"]
 [ext_resource type="Texture2D" uid="uid://dvltgxcgi2836" path="res://UI/Theme/Assets/GUISprite_upscaled.png" id="3_to2on"]
 [ext_resource type="PackedScene" uid="uid://b34ehagl7kyh" path="res://UI/PauseMenu/PauseMenu.tscn" id="4_daqq0"]
 [ext_resource type="Texture2D" uid="uid://8yys3ixi1225" path="res://Assets/MyStuff/Corner_Arrow.png" id="4_jboj1"]
@@ -10,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://rars2gvlw0qn" path="res://Assets/MyStuff/Wizard/Wizard_Idle_(1,-1).png" id="7_tg6tb"]
 [ext_resource type="Texture2D" uid="uid://ccrv4vlrygodk" path="res://Assets/MyStuff/Wizard/Wizard_Idle_(1,0).png" id="8_cwf2h"]
 [ext_resource type="Texture2D" uid="uid://pbolj2jfx5sk" path="res://Assets/MyStuff/Wizard/Wizard_Idle_(1,1).png" id="9_ksalt"]
+[ext_resource type="PackedScene" uid="uid://b58hp4qy7bdmp" path="res://Skills/SoulCombustion/SoulCombustion.tscn" id="11_4mtoe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vv7x2"]
 
@@ -222,13 +225,8 @@ animations = [{
 process_mode = 3
 z_index = 4
 script = ExtResource("1_wqnml")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-z_index = 1
-texture_filter = 1
-position = Vector2(0, -8)
-texture = ExtResource("2_odhae")
+attributes = ExtResource("3_17lv6")
+level_up_attributes = ExtResource("2_ngg7g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -271,15 +269,31 @@ layout_mode = 2
 columns = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer/PanelContainer"]
 layout_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer/PanelContainer2"]
 layout_mode = 2
 
 [node name="PanelContainer3" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer/PanelContainer3"]
 layout_mode = 2
 
 [node name="PanelContainer4" type="PanelContainer" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer/Control/BottomBar/GridContainer/PanelContainer4"]
 layout_mode = 2
 
 [node name="TopBar" type="Control" parent="HUD/HBoxContainer/Control"]
@@ -321,7 +335,20 @@ rounded = true
 texture_under = SubResource("AtlasTexture_djam4")
 texture_progress = SubResource("AtlasTexture_gk60u")
 
-[node name="Corner_Anim" type="AnimatedSprite2D" parent="."]
+[node name="SoulCombustion" parent="." instance=ExtResource("11_4mtoe")]
+visible = false
+z_index = -1
+
+[node name="Look" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Look"]
+visible = false
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("2_odhae")
+
+[node name="Corner_Anim" type="AnimatedSprite2D" parent="Look"]
 visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5f8kq")
@@ -329,7 +356,7 @@ animation = &"Corner_Arrow"
 autoplay = "Corner_Arrow"
 speed_scale = 2.0
 
-[node name="Idle_Anim" type="AnimatedSprite2D" parent="."]
+[node name="Idle_Anim" type="AnimatedSprite2D" parent="Look"]
 texture_filter = 1
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_q80xp")

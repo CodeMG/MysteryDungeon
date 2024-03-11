@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkfrqyb682m87"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vcxid"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_g6u8f"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gjcbl"]
+gradient = SubResource("Gradient_g6u8f")
+width = 4
+height = 4
+
+[sub_resource type="Curve" id="Curve_iq2ay"]
+_data = [Vector2(0, 0.0105263), 0.0, 0.0, 0, 0, Vector2(0.246324, 0.536842), 0.0, 0.0, 0, 0, Vector2(0.746324, 0.557895), 0.0, 0.0, 0, 0, Vector2(1, 0.0105263), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_ov3bj"]
+offsets = PackedFloat32Array(0, 0.344398, 0.755187)
+colors = PackedColorArray(0.72549, 0.0862745, 0, 1, 1, 0.796078, 0, 1, 0.35, 0.35, 0.35, 1)
+
+[node name="HorizontalEdge" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_vcxid")
+position = Vector2(0, -6)
+amount = 128
+lifetime = 0.5
+explosiveness = 0.08
+lifetime_randomness = 0.28
+local_coords = true
+texture = SubResource("GradientTexture2D_gjcbl")
+emission_shape = 3
+emission_rect_extents = Vector2(7, 1)
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+gravity = Vector2(0, -98)
+damping_min = 20.0
+damping_max = 20.0
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_iq2ay")
+color_ramp = SubResource("Gradient_ov3bj")

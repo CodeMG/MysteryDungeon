@@ -21,6 +21,7 @@ GameLogic="*res://World/GameLogic/GameLogic.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Globals="*res://Globals/Globals.gd"
 Inventory="*res://Items/Inventory/Inventory.gd"
+LevelUpScreen="*res://UI/LevelUpScreen/level_up_screen.tscn"
 
 [debug]
 
@@ -32,10 +33,12 @@ general/balloon_path="res://UI/Dialogue/balloon.tscn"
 
 [display]
 
-window/size/viewport_width=1980
+window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
-window/stretch/mode="canvas_items"
+window/size/resizable=false
+window/size/borderless=true
+window/stretch/mode="viewport"
 window/per_pixel_transparency/allowed=true
 window/vsync/vsync_mode=0
 
@@ -46,10 +49,6 @@ movie_writer/fps=300
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
-
-[gui]
-
-theme/custom="res://UI/Theme/Theme.tres"
 
 [importer_defaults]
 
@@ -173,10 +172,15 @@ use_skill_1={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":49,"key_label":0,"unicode":49,"echo":false,"script":null)
 ]
 }
+use_skill_2={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":50,"key_label":0,"unicode":50,"echo":false,"script":null)
+]
+}
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogue/Test/test.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogue/Test/test.dialogue", "res://Dialogue/Intro/Merchant.dialogue")
 
 [layer_names]
 
@@ -184,7 +188,11 @@ locale/translations_pot_files=PackedStringArray("res://Dialogue/Test/test.dialog
 
 [physics]
 
-2d/default_gravity=0.0
-2d/default_gravity_vector=Vector2(0, 0)
+2d/default_gravity=98.1
 2d/default_linear_damp=0.0
 2d/default_angular_damp=0.0
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/lossless_compression/force_png=true

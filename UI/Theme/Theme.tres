@@ -1,7 +1,6 @@
 [gd_resource type="Theme" load_steps=15 format=3 uid="uid://c246mba1g7c1g"]
 
 [ext_resource type="Texture2D" uid="uid://dvltgxcgi2836" path="res://UI/Theme/Assets/GUISprite_upscaled.png" id="1_1crjh"]
-[ext_resource type="FontFile" uid="uid://cgjv6xpxo0v56" path="res://UI/Theme/Assets/DungeonFont.ttf" id="1_e2xfu"]
 [ext_resource type="Texture2D" uid="uid://8kdespy7wpbw" path="res://UI/Theme/Assets/Newstuff_upscaled.png" id="2_jw2vl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o05im"]
@@ -71,9 +70,11 @@ texture_margin_top = 28.0
 texture_margin_right = 28.0
 texture_margin_bottom = 28.0
 
+[sub_resource type="SystemFont" id="SystemFont_t2qbp"]
+
 [resource]
-default_font = ExtResource("1_e2xfu")
-default_font_size = 35
+default_font = SubResource("SystemFont_t2qbp")
+default_font_size = 20
 Button/styles/hover = SubResource("StyleBoxTexture_m7yia")
 Button/styles/normal = SubResource("StyleBoxTexture_65l5i")
 Button/styles/pressed = SubResource("StyleBoxTexture_rxmgt")

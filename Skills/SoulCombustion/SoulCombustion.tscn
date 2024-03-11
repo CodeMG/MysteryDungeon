@@ -1,0 +1,123 @@
+[gd_scene load_steps=19 format=3 uid="uid://b58hp4qy7bdmp"]
+
+[ext_resource type="Script" path="res://Skills/SoulCombustion/SoulCombustion.gd" id="1_38kp8"]
+[ext_resource type="Shader" path="res://Skills/SoulCombustion/SoulCombustionShader2.gdshader" id="1_bxrp5"]
+[ext_resource type="Shader" path="res://Skills/SoulCombustion/MyFireSquareShader.gdshader" id="3_t25cj"]
+[ext_resource type="PackedScene" uid="uid://dkfrqyb682m87" path="res://Skills/SoulCombustion/FireParticle.tscn" id="4_h3gfu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xrj70"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kssx5"]
+seamless = true
+seamless_blend_skirt = 0.146
+noise = SubResource("FastNoiseLite_xrj70")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6nesh"]
+shader = ExtResource("1_bxrp5")
+shader_parameter/radius = 0.75
+shader_parameter/thickness = 0.21
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/highlight_color = Color(0.984314, 0.631373, 0, 1)
+shader_parameter/brightness = 4.14
+shader_parameter/angular_speed = 1.49
+shader_parameter/radial_speed = 1.79
+shader_parameter/alpha = 0.5
+shader_parameter/noise = SubResource("NoiseTexture2D_kssx5")
+
+[sub_resource type="Gradient" id="Gradient_p1pg5"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y55xa"]
+gradient = SubResource("Gradient_p1pg5")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.487179, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_i0bel"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v6vkp"]
+gradient = SubResource("Gradient_i0bel")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bb4gt"]
+frequency = 0.0497
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gqffc"]
+noise = SubResource("FastNoiseLite_bb4gt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_842oy"]
+shader = ExtResource("3_t25cj")
+shader_parameter/brighter_color = Color(1, 0.8, 0, 1)
+shader_parameter/middle_color = Color(1, 0.56, 0, 1)
+shader_parameter/darker_color = Color(0.945098, 0.0705882, 0.0509804, 1)
+shader_parameter/width = 16.0
+shader_parameter/height = 16.0
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_gqffc")
+shader_parameter/gradient_tex = SubResource("GradientTexture1D_v6vkp")
+
+[sub_resource type="Gradient" id="Gradient_o1bg5"]
+colors = PackedColorArray(1, 0.141176, 0, 1, 1, 0.843137, 0.0470588, 1)
+
+[sub_resource type="Gradient" id="Gradient_ud1vh"]
+colors = PackedColorArray(0.992157, 0.0862745, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_cpxcb"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_br8om"]
+gradient = SubResource("Gradient_cpxcb")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.893162, 0.846154)
+
+[node name="SoulCombustion" type="Node2D"]
+script = ExtResource("1_38kp8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_6nesh")
+texture = SubResource("GradientTexture2D_y55xa")
+
+[node name="FireSquare" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_842oy")
+texture = SubResource("GradientTexture2D_y55xa")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+amount = 256
+lifetime = 0.1
+speed_scale = 0.5
+explosiveness = 0.2
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 8.0
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -980)
+initial_velocity_max = 48.61
+scale_amount_min = 0.2
+scale_amount_max = 0.8
+color = Color(1, 0.203922, 0.0470588, 1)
+color_ramp = SubResource("Gradient_o1bg5")
+color_initial_ramp = SubResource("Gradient_ud1vh")
+
+[node name="HorizontalEdge" parent="." instance=ExtResource("4_h3gfu")]
+
+[node name="HorizontalEdge2" parent="." instance=ExtResource("4_h3gfu")]
+position = Vector2(0, 6)
+
+[node name="VerticalEdge" parent="." instance=ExtResource("4_h3gfu")]
+position = Vector2(-6, 0)
+emission_rect_extents = Vector2(1, 7)
+
+[node name="VerticalEdge2" parent="." instance=ExtResource("4_h3gfu")]
+position = Vector2(6, 0)
+emission_rect_extents = Vector2(1, 7)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.337255, 0, 1)
+texture = SubResource("GradientTexture2D_br8om")

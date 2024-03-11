@@ -1,9 +1,12 @@
 extends Node
 
-@onready var Start = $VBox/Start
-@onready var Options = $VBox/Options
-@onready var Credits = $VBox/Credits
-@onready var Quit = $VBox/Quit
+@onready var Main = %Main
+@onready var Start = %Main/VBox/Start
+@onready var Options = %Main/VBox/Options
+@onready var Credits = %Main/VBox/Credits
+@onready var Quit = %Main/VBox/Quit
+
+@onready var Save_Select = %SaveSelect
 
 func _ready():
 	Start.grab_focus()
@@ -17,7 +20,9 @@ func _unhandled_input(event):
 	
 func on_start():
 	#get_tree().change_scene_to_file("res://World/World.tscn")
-	get_tree().change_scene_to_file("res://Overworld/Overworld.tscn")
+	#get_tree().change_scene_to_file("res://Overworld/Overworld.tscn")
+	Main.visible = false
+	Save_Select.visible = true
 
 func on_options():
 	pass

@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2k1ci8eofrlw"]
+
+[ext_resource type="Script" path="res://gukgu.gd" id="1_njtc2"]
+[ext_resource type="Texture2D" uid="uid://d25jej3ywbot" path="res://icon.svg" id="2_asyyp"]
+[ext_resource type="Shader" path="res://light_mask_shader.gdshader" id="2_ddkfm"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vvnwc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b0a50"]
+noise = SubResource("FastNoiseLite_vvnwc")
+
+[sub_resource type="Gradient" id="Gradient_w2utx"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3a06v"]
+gradient = SubResource("Gradient_w2utx")
+fill = 1
+fill_from = Vector2(0.508547, 0.521368)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ujcj"]
+shader = ExtResource("2_ddkfm")
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(2, 1)
+script = ExtResource("1_njtc2")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = SubResource("NoiseTexture2D_b0a50")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(32, 3)
+blend_mode = 2
+texture = SubResource("GradientTexture2D_3a06v")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-22, -5)
+blend_mode = 2
+texture = SubResource("GradientTexture2D_3a06v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6ujcj")
+position = Vector2(-41, 4)
+texture = ExtResource("2_asyyp")

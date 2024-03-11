@@ -29,12 +29,11 @@ const WALL_LAYER = 1
 @onready var node_minimap = %MinimapLayer/%SubViewportContainer
 
 #Enemy
-var enemy = preload("res://World/Units/Enemy/BasicEnemy/BasicEnemy.tscn")
+var enemy_preset = preload("res://World/Units/Enemy/BasicEnemy/BasicEnemy.tscn")
 #Torch
 var torch = preload("res://World/Lighting/Torch.tscn")
 #Item
 var item_preset = preload("res://Items/Item.tscn")
-
 
 #worldspecific
 
@@ -72,18 +71,6 @@ func clear_all():
 		i.queue_free()
 	for e in node_effects.get_children():
 		e.queue_free()
-	
-func spawn_enemy():
-	var room_extent = get_random_room()
-	var en = enemy.instantiate()
-	node_enemies.add_child(en)
-	var c = Globals.CELL_SIZE
-	var x = randi_range(0,(room_extent.size.x/c))*c
-	var y = randi_range(0,(room_extent.size.y/c))*c
-	en.position = room_extent.position + Vector2i(x,y)
-	en.died.connect(node_player.receive_exp)
-
-
 
 func spawn_lightsource():
 	var room_extent = get_random_room() 
@@ -119,8 +106,34 @@ func get_room(position:Vector2)->Rect2i:
 func get_stairs():
 	return null
 	
-	
 ##############Spawn functions#############################
+func spawn_enemies():
+	var array_of_enemies = world_resource.spawnable_enemies
+	var total_weights = world_resource.enemy_weight_padding
+	for enemy in array_of_enemies:
+		total_weights += enemy.weight
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var cells = node_tilemap.get_used_cells(GROUND_LAYER)
+	for cell in cells:
+		var i = rng.randi_range(0,total_weights-1)
+		if i < world_resource.enemy_weight_padding:
+			continue
+		var counter = world_resource.enemy_weight_padding
+		for enemy in array_of_enemies:
+			if i < counter+enemy.weight:
+				spawn_enemy(enemy,cell*Vector2i(Globals.CELL_SIZE,Globals.CELL_SIZE))
+				break
+			counter += enemy.weight
+
+func spawn_enemy(enemy:EnemyResource, pos:Vector2i):
+	var enemy2d = enemy_preset.instantiate()
+	node_enemies.add_child(enemy2d)
+	enemy2d.source = enemy
+	enemy2d.position = pos
+	enemy2d.died.connect(node_player.receive_exp)
+	enemy2d.init()
+
 func spawn_items():
 	var array_of_items = world_resource.spawnable_items
 	var total_weights = world_resource.item_weight_padding
@@ -166,7 +179,7 @@ func npc_at_pos(pos:Vector2i):
 	
 func enemy_at_pos(pos:Vector2i):
 	for enemy in node_enemies.get_children():
-		if Vector2i(enemy.position.floor()) == pos:
+		if Vector2i(enemy.position.round()) == pos:
 			return enemy
 	return null
 
@@ -184,3 +197,18 @@ func unit_at_pos(pos:Vector2i):
 		return npc
 	var player = player_at_pos(pos)
 	return player
+ 
+func units_in_rect(rect:Rect2):
+	var units = []
+	for x in range(0,rect.size.x):
+		for y in range(0,rect.size.y):
+			var e = enemy_at_pos(rect.position + Vector2(x*16,y*16))
+			if e != null:
+				units.append(e)
+	return units
+
+func item_at_pos(pos:Vector2i):
+	for item in node_items.get_children():
+		if Vector2i(item.position.floor()) == pos:
+			return item
+	return null

@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyp28bx6ahkgg"]
+
+[ext_resource type="Script" path="res://debug_test_123.gd" id="1_6nsk2"]
+[ext_resource type="PackedScene" uid="uid://bqkjliqhk246e" path="res://debug_test123.tscn" id="2_piges"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 324.0
+offset_top = 110.0
+offset_right = 324.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Nodes" type="Control" parent="MarginContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureButton" parent="MarginContainer/PanelContainer/Nodes" instance=ExtResource("2_piges")]
+layout_mode = 2
+offset_left = -146.0
+offset_top = -45.0
+offset_right = -18.0
+offset_bottom = 83.0
+
+[node name="TextureButton2" parent="MarginContainer/PanelContainer/Nodes" instance=ExtResource("2_piges")]
+layout_mode = 2
+offset_left = 221.0
+offset_top = 198.0
+offset_right = 349.0
+offset_bottom = 326.0
+
+[node name="TextureButton3" parent="MarginContainer/PanelContainer/Nodes" instance=ExtResource("2_piges")]
+layout_mode = 2
+offset_left = 410.0
+offset_top = 26.0
+offset_right = 538.0
+offset_bottom = 154.0
+
+[node name="TextureButton4" parent="MarginContainer/PanelContainer/Nodes" instance=ExtResource("2_piges")]
+layout_mode = 2
+offset_left = -1.0
+offset_top = 120.0
+offset_right = 127.0
+offset_bottom = 248.0
+
+[node name="TextureButton5" parent="MarginContainer/PanelContainer/Nodes" instance=ExtResource("2_piges")]
+layout_mode = 2
+offset_left = 139.0
+offset_top = 28.0
+offset_right = 267.0
+offset_bottom = 156.0
+
+[node name="Control2" type="Control" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Map" type="Control" parent="MarginContainer/PanelContainer/Control2"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 712.0
+offset_top = 158.0
+offset_right = 752.0
+offset_bottom = 198.0
+script = ExtResource("1_6nsk2")

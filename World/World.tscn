@@ -101,4 +101,6 @@ unique_name_in_owner = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("12_3ky4m")
+volume_db = -10.0
+pitch_scale = 0.69
 autoplay = true

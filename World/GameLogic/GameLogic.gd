@@ -12,10 +12,12 @@ enum States{
 	END
 }
 var current_state : States
-
+var current_unit
 var world #The current world being played
 var units = [] #A container for the current units that follow the round based movement
 var game_active: bool = false #A bool to check if the game has started (for Menus and stuff)
+
+var turn = 0
 
 func _ready():
 	current_state = States.INIT
@@ -44,10 +46,11 @@ func _process(delta):
 		world.create_level()
 		game_started.emit()
 		current_state = States.UNIT_TURN
+		turn= 0
 	if current_state == States.UNIT_TURN:
 		#Check whoose turn it is, and allow them to act
 		if units.size() == 0: return
-		var current_unit = get_current_unit()
+		current_unit = get_current_unit()
 		var performed = current_unit.action()
 		if performed:
 			current_unit.time_counter -= current_unit.time_to_action
@@ -61,8 +64,11 @@ func _process(delta):
 		for unit in units:
 			if unit.animations_running:
 				return
-		
+		#Then check for end of turn effects for current unit
+		current_unit.process_effects() #If the unit has performed an action then process their effects
+		#Optional: Check for end of turn effects of everyone
 		current_state = States.UNIT_TURN
+		turn += 1
 		action_performed.emit()
 	if current_state == States.END:
 		#End game

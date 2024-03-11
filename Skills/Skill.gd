@@ -2,19 +2,23 @@ class_name Skill
 
 #Icon
 var icon:Texture2D
-
 #Owner
 var owner: Unit
-
 #Skill properties
+var name:String
 var mana_cost:float
 var stamina_cost:float
+var level:int
+var upgrades:Array[Attributes]
 
-func init(owner:Unit,mana_cost:float = 0,stamina_cost:float = 0) -> Skill:
-	self.owner = owner
-	self.mana_cost = mana_cost
-	self.stamina_cost = stamina_cost
-	return self
+func _init():
+	level = 0
 
 func use(callback:Callable):
 	pass
+
+func get_attributes():
+	return upgrades[level-1]
+
+func level_up():
+	level = level + 1

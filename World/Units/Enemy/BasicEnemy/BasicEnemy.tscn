@@ -14,8 +14,10 @@ script = ExtResource("1_n73op")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xipn2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Look" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Look"]
 material = SubResource("CanvasItemMaterial_slhaa")
 texture = ExtResource("1_36uir")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

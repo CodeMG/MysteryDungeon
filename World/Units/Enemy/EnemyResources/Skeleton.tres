@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://dpgabxrqyhuju"]
+
+[ext_resource type="Script" path="res://World/Units/Enemy/EnemyResource.gd" id="1_fpfcf"]
+[ext_resource type="Script" path="res://World/Units/Attributes.gd" id="1_wwnn0"]
+[ext_resource type="Texture2D" uid="uid://cusmgh7k5xaoy" path="res://Assets/2DPixelDungeon/Character_animation/monsters_idle/skeleton1/v2/skeleton_v2_1.png" id="2_wgylj"]
+
+[sub_resource type="Resource" id="Resource_8hnlx"]
+script = ExtResource("1_wwnn0")
+max_health = 100.0
+stamina = 100.0
+mana = 100.0
+physical_damage = 50.0
+ethereal_damage = 0.0
+fire_damage = 0.0
+water_damage = 0.0
+earth_damage = 0.0
+lightning_damage = 0.0
+armor = 10.0
+evasion = 10.0
+soul_shield = 0.0
+water_resistance = 0.0
+fire_resistance = 0.0
+earth_resistance = 0.0
+lightning_resistance = 0.0
+increase_physical_damage = 1.0
+increase_ethereal_damage = 1.0
+increase_water_damage = 1.0
+increase_fire_damage = 1.0
+increase_earth_damage = 1.0
+increase_lightning_damage = 1.0
+increase_armor = 1.0
+increase_evasion = 1.0
+increase_soul_shield = 1.0
+more_physical_damage = 1.0
+more_ethereal_damage = 1.0
+more_water_damage = 1.0
+more_fire_damage = 1.0
+more_earth_damage = 1.0
+more_lightning_damage = 1.0
+more_armor = 1.0
+more_evasion = 1.0
+more_soul_shield = 1.0
+speed = 10.0
+
+[resource]
+script = ExtResource("1_fpfcf")
+name = "Skeleton"
+look = ExtResource("2_wgylj")
+AI = 0
+attributes = SubResource("Resource_8hnlx")
+weight = 500

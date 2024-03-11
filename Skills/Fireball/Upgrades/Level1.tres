@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Attributes" load_steps=2 format=3 uid="uid://e2onqceb6ro2"]
+
+[ext_resource type="Script" path="res://World/Units/Attributes.gd" id="1_jm3nl"]
+
+[resource]
+script = ExtResource("1_jm3nl")
+max_health = 0.0
+stamina = 0.0
+mana = 0.0
+physical_damage = 0.0
+ethereal_damage = 0.0
+fire_damage = 100.0
+water_damage = 0.0
+earth_damage = 0.0
+lightning_damage = 0.0
+armor = 0.0
+evasion = 0.0
+soul_shield = 0.0
+water_resistance = 0.0
+fire_resistance = 0.0
+earth_resistance = 0.0
+lightning_resistance = 0.0
+increase_physical_damage = 1.0
+increase_ethereal_damage = 1.0
+increase_water_damage = 1.0
+increase_fire_damage = 1.0
+increase_earth_damage = 1.0
+increase_lightning_damage = 1.0
+increase_armor = 1.0
+increase_evasion = 1.0
+increase_soul_shield = 1.0
+more_physical_damage = 1.0
+more_ethereal_damage = 1.0
+more_water_damage = 1.0
+more_fire_damage = 1.0
+more_earth_damage = 1.0
+more_lightning_damage = 1.0
+more_armor = 1.0
+more_evasion = 1.0
+more_soul_shield = 1.0
+speed = 0.0

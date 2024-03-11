@@ -8,17 +8,19 @@ signal dealt_damage
 signal leveled_up
 signal stats_changed
 signal equipment_changed
+signal skills_changed
 #The world the unit exists in
 @onready var node_world = get_tree().current_scene
 
 #Combat attributes
 @export var attributes: Attributes
 @export var final_attributes:Attributes #Attributes after Equipment and Buffs have been considered
+@export var level_up_attributes:Attributes
 var current_level = 1
 var current_exp = 0
 var max_exp = 100
-var exp_granted = 200
-
+var exp_granted = 100
+var current_health
 #Skills
 var skills:Array[Skill]
 
@@ -34,30 +36,46 @@ var gloves:EquippableItem
 var boots:EquippableItem
 
 #GameLogic
-var action_time = 0.1
+var action_time = 1
 var time_counter: float
 var time_to_action : float = 100
 var animations_running: bool = false
+var moving:bool = false
 var direction : Vector2 = Vector2(1,0)
 
 func _init():
 	GameLogic.add_unit(self) #The Unit adds itself to the Gamelogics list of participating units
-	attributes = Attributes.new() #Create/Load Attributes
-	attributes.current_health = 10
-	attributes.max_health = 10
-	attributes.speed = 10
 	stats_changed.connect(compute_final_attributes)
+	compute_final_attributes()
 	
 
 #Perform action, if action was performed return true, else return false
 func action() -> bool:
 	return true
-	
-func move(target:Vector2):
-	animations_running = true
+
+func process_effects():
+	update_skills()
+
+func update_skills():
+	for skill in skills:
+		if skill is DurationSkill:
+			skill.update()
+
+func move(target:Vector2i) -> bool:
+	if moving:
+		return false
+	moving = true
+	#animations_running = false
+	move_anim(target)
+	self.position = target
+	return true
+
+func move_anim(target:Vector2):
 	var tween = self.create_tween()
-	tween.tween_property(self,"position",target,action_time)
+	tween.tween_property($Look,"global_position",target,action_time).from(self.position)
 	tween.tween_callback(animation_finished)
+	tween.tween_callback(moving_finished)
+	tween.tween_callback(reset_look)
 
 func attack(target:Vector2):
 	var current_pos = self.position
@@ -67,13 +85,31 @@ func attack(target:Vector2):
 		unit.receive_damage(damage)
 	animations_running = true
 	var tween = self.create_tween()
-	tween.tween_property(self,"position",target,action_time/2)
-	tween.tween_property(self,"position",current_pos,action_time/2)
+	tween.tween_property(self,"position",target,action_time/2).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(self,"position",current_pos,action_time/2).set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_callback(animation_finished)
 
 func animation_finished():
 	animations_running = false
+
+func moving_finished():
+	moving = false
+ 
+func reset_look():
+	$Look.position = Vector2(0,0)
 	
+func add_skill(skill:Skill):
+	var has_skill = false
+	var owned_skill = null
+	for sk in skills:
+		if sk.name == skill.name:
+			has_skill = true
+			owned_skill = sk
+	if has_skill:
+		owned_skill.level_up()
+	else:
+		skills.append(skill)
+	skills_changed.emit()
 	
 #Inventory Functions
 func unequip_item(type:Globals.EquipmentTypes) -> EquippableItem:
@@ -192,25 +228,29 @@ func compute_final_attributes():
 
 
 func receive_damage(damage: DamageInfo):
-	attributes.current_health -= damage.physical_damage
-	if attributes.current_health <= 0:
+	var total_damage = damage.fire_damage * (1.0-final_attributes.fire_resistance)
+	total_damage += damage.earth_damage * (1.0-final_attributes.earth_resistance)
+	total_damage += damage.water_damage * (1.0-final_attributes.water_resistance)
+	total_damage += damage.lightning_damage * (1.0-final_attributes.lightning_resistance)
+	total_damage += damage.physical_damage * (1.0)
+	current_health -= total_damage
+	if current_health <= 0:
 		die()
+	stats_changed.emit()
 
 func heal(amount:int):
-	attributes.current_health += amount
-	if attributes.current_health > attributes.max_health:
-		attributes.current_health = attributes.max_health
+	current_health += amount
+	if current_health > final_attributes.max_health:
+		current_health = final_attributes.max_health
+	stats_changed.emit()
 
 func create_damage():
-	var damage = DamageInfo.new()
-	damage.physical_damage = 10
+	var damage = final_attributes.get_damage()
 	return damage
 
 func level_up():
 	current_level += 1
-	attributes.max_health += 10
-	attributes.current_health += 10
-	attributes.damage += 10
+	attributes = attributes.combine_attributes(level_up_attributes)
 	leveled_up.emit(current_level)
 
 func receive_exp(exp):
@@ -220,7 +260,22 @@ func receive_exp(exp):
 		current_exp -= max_exp
 		level_up()
 		receive_exp(0)
-	
+		
 
 func die():
+	#Death anim
+	animations_running = true
+	var tween = get_tree().create_tween()
+	self.modulate = Color(1.0,1.0,1.0,0.5)
+	tween.tween_property(self,"modulate",Color(1.0,1.0,1.0,0.0),1.0).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_callback(emit_exp)
+	tween.tween_callback(animation_finished)
+
+func emit_exp():
 	died.emit(exp_granted)
+###### MISC #######
+
+#Important because the owner variable of each skills gets resetted everytime a scene changes
+func reset_skills():
+	for sk in skills:
+		sk.owner = self

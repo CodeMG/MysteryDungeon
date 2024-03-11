@@ -13,7 +13,7 @@ var current_state:AI_STATES
 var current_targetLocation: Vector2i
 var current_path= []
 
-
+var source:EnemyResource
 
 func _init():
 	super()
@@ -22,17 +22,23 @@ func _init():
 func _ready():
 	action_time = 0.1
 	
-
+func _process(delta):
+	queue_redraw()
+	
+func init():
+	attributes = source.attributes
+	compute_final_attributes()
+	current_health = attributes.max_health
 func action()->bool:
 	var tmp = action_time
 	#Check if the Enemy can be seen
 	if !notifier.is_on_screen() || !in_light:
 		action_time = 0.0001
-	AI()
+	var performed = AI()
 	action_time = tmp
-	return true
+	return performed
 
-func AI():
+func AI() -> bool:
 	if current_state == AI_STATES.IDLE:
 		if current_path.size() == 0:
 			#Find new random target location
@@ -44,6 +50,7 @@ func AI():
 			current_path = node_world.get_path_on_grid(Vector2i(position.floor()),current_targetLocation)
 			current_path.reverse() #More efficient, because we remove the next target every step
 			current_path.remove_at(current_path.size()-1)# To remove the start which is where the AI already is at
+			return false
 		else:
 			#Check if enemy can see player:
 			var room = node_world.get_room(Vector2i(position))
@@ -58,13 +65,15 @@ func AI():
 						var test_pos = Vector2i(position.x+i*Globals.CELL_SIZE,position.y+j*Globals.CELL_SIZE)
 						if p_pos == test_pos:
 							current_state = AI_STATES.AGGRESSIVE
-							return
+							return false
 			#Go to target location
 			var targetPos = current_path[current_path.size()-1]
 			direction = Vector2i(targetPos.floor())-Vector2i(position.floor())
 			direction = Vector2i(sign(direction.x),sign(direction.y))
 			if !node_world.enemy_at_pos(targetPos):
-				move(targetPos)
+				var acted = move(targetPos)
+				if !acted:
+					return false
 				current_path.remove_at(current_path.size()-1)
 			else:
 				current_path.clear()
@@ -72,8 +81,10 @@ func AI():
 	elif current_state == AI_STATES.AGGRESSIVE:
 		#If the enemy is next to the player:
 		var dist = (node_world.node_player.position - position).length()
-		print(dist)
 		if dist < 2*16:
+			#Check if the player is still moving
+			if Globals.player.moving:
+				return false
 			attack(node_world.node_player.position)
 		else:# Else calculate path to player and move
 			current_path.clear()
@@ -83,23 +94,31 @@ func AI():
 			direction = Vector2i(targetPos.floor())-Vector2i(position.floor())
 			direction = Vector2i(sign(direction.x),sign(direction.y))
 			if !node_world.enemy_at_pos(targetPos):
-				move(targetPos)
+				var acted = move(targetPos)
+				if !acted:
+					return false
+			else:
+				print("GAVE UP")
+	return true
 
 func animation_finished():
 	super.animation_finished()
 
-#func _draw():
-#	var tmp = current_path.duplicate()
-#	tmp.reverse()
-#	for i in range(1,tmp.size()):
-#		draw_line(tmp[i-1]-position,tmp[i]-position,Color(1,0,0),1)
-#	draw_line(Vector2.ZERO,direction*8,Color(0,0,1),1)
-#	#top_level = true
-#	#draw_multiline(current_path,Color(1,0,0))
+func _draw():
+	var tmp = current_path.duplicate()
+	tmp.reverse()
+	for i in range(1,tmp.size()):
+		draw_line(tmp[i-1]-position,tmp[i]-position,Color(1,0,0),1)
+	draw_line(Vector2.ZERO,direction*8,Color(0,0,1),1)
+	#top_level = true
+	#draw_multiline(current_path,Color(1,0,0))
 
 func set_in_light(v:bool):
 	in_light = v 
 	
 func die():
 	super.die()
+	
+	while animations_running:
+		await get_tree().create_timer(0.01).timeout
 	queue_free()

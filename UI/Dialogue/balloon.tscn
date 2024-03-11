@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=7 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://UI/Dialogue/balloon.gd" id="1_4u26j"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Theme" uid="uid://c246mba1g7c1g" path="res://UI/Theme/Theme.tres" id="2_i2ydk"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_72ixx"]
+[ext_resource type="AudioStream" uid="uid://bpfx0qkk5mlwy" path="res://Assets/Music/Retro1.mp3" id="5_cyjpb"]
+[ext_resource type="Script" path="res://UI/Dialogue/TypeAudio.gd" id="6_nphdp"]
 
 [node name="ExampleBalloon" type="CanvasLayer"]
 layer = 100
@@ -62,6 +64,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
 text = "Dialogue..."
 
 [node name="Responses" type="MarginContainer" parent="Balloon"]
@@ -89,6 +96,10 @@ response_template = NodePath("ResponseExample")
 [node name="ResponseExample" type="Button" parent="Balloon/Responses/ResponsesMenu"]
 layout_mode = 2
 text = "Response example"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_cyjpb")
+script = ExtResource("6_nphdp")
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Balloon/Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

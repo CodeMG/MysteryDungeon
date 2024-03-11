@@ -17,5 +17,6 @@ func update_camera():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var movement = target - position
-	position += movement*delta*5
+	var movement:Vector2 = target - position
+	var change = movement*delta*5
+	position += change

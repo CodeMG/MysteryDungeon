@@ -20,10 +20,10 @@ var player:PlayerUnit
 
 ###################Important Scenes##############################
 var fireball = preload("res://Skills/Fireball/Fireball.tscn")
-
+var intro = preload("res://Cutscenes/Intro/intro.tscn")
 ###################Important Resources##########################
 var modlist:Array[Modifier]
-
+var skills:Array[Skill]
 #######################Game specific globals#############################
 var CELL_SIZE = 16
 
@@ -35,10 +35,24 @@ func start_DungeonWorld():
 	get_tree().change_scene_to_file("res://World/World.tscn")
 	scene_change.emit()
 
+func start_intro():
+	get_tree().change_scene_to_file(intro.resource_path)
+	scene_change.emit()
 
 ######################Init##############################
 func _ready():
 	init_modlist()
+	init_skills()
+
+func init_skills():
+	var fb = FireballSkill.new()
+	fb.level = 1
+	fb.owner = player
+	skills.append(fb)
+	var sc = SoulCombustionSkill.new()
+	sc.level = 1
+	sc.owner = player
+	skills.append(sc)
 
 func init_modlist():
 	var path = "res://Items/Modifiers/"
@@ -71,3 +85,33 @@ func tilemap_to_AStarGrid2D(tilemap:TileMap) -> AStarGrid2D:
 			if tile != null:
 				star.set_point_solid(Vector2i(x,y),true)
 	return star
+
+
+#####################SAVING AND LOADING#################################
+func save_progress(id:int):
+	var path  = "user://savegame"+str(id)+".save"
+	var save_game = FileAccess.open(path, FileAccess.WRITE)
+	#Store Date and Time of saving
+	save_game.store_string(Time.get_datetime_string_from_system())
+	
+	
+	save_game.close()
+
+func progress_exists(id:int) -> bool:
+	var path  = "savegame"+str(id)+".save"
+	var dir = DirAccess.open("user://")
+	return dir.file_exists(path)
+
+func delete_progress(id:int):
+	var path  = "savegame"+str(id)+".save"
+	var dir = DirAccess.open("user://")
+	dir.remove(path)
+	
+func get_date_of_progress(id:int):
+	var path  = "user://savegame"+str(id)+".save"
+	var save_game = FileAccess.open(path, FileAccess.READ)
+	if save_game == null:
+		return null
+	var date = save_game.get_line()
+	#Time.get_datetime_dict_from_datetime_string(date,false)
+	return date

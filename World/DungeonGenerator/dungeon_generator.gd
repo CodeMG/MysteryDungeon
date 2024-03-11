@@ -74,15 +74,6 @@ func _draw():
 func _process(delta):
 	queue_redraw()
 
-func _input(event):
-	#if event.is_action_pressed('ui_select'):
-	#	for n in $Rooms.get_children():
-	#		n.queue_free()
-	#	path = null
-	#	make_rooms()
-	#if event.is_action_pressed('ui_focus_next'):
-	#	make_map()
-	pass
 		
 func make_map():
 	#Create a Tilemap from generated rooms and path

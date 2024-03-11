@@ -37,9 +37,11 @@ enum ATT{
 	SPEED = 30,
 }
 
+#Lists of useful combinations of indices
+static var base_stats = [0,1,2,3,4,5,6,7,8,21,22,23]
+
 #Combat
 #Base Stats
-@export var current_health = 0.0
 @export var max_health = 0.0
 @export var stamina = 0.0
 @export var mana = 0.0
@@ -230,10 +232,73 @@ func set_by_att(att:ATT,new_value):
 	elif att == ATT.SPEED:
 		speed = new_value
 
+static func get_name_by_att(att:ATT):
+	if att == ATT.MAX_HEALTH:
+		return "max health"
+	elif att == ATT.STAMINA:
+		return "stamina"
+	elif att == ATT.MANA:
+		return "mana"
+	elif att == ATT.PHYSICAL_DAMAGE:
+		return "physical damage"
+	elif att == ATT.ETHEREAL_DAMAGE:
+		return "ethereal damage"
+	elif att == ATT.FIRE_DAMAGE:
+		return "fire damage"
+	elif att == ATT.WATER_DAMAGE:
+		return "water damage"
+	elif att == ATT.EARTH_DAMAGE:
+		return "earth damage"
+	elif att == ATT.LIGHTNING_DAMAGE:
+		return "lightning damage"
+	elif att == ATT.INCREASED_PHYSICAL_DAMAGE:
+		return "increase physical damage"
+	elif att == ATT.INCREASED_ETHEREAL_DAMAGE:
+		return "increase ethereal damage"
+	elif att == ATT.INCREASED_FIRE_DAMAGE:
+		return "increase fire damage"
+	elif att == ATT.INCREASED_WATER_DAMAGE:
+		return "increase water damage"
+	elif att == ATT.INCREASED_EARTH_DAMAGE:
+		return "increase earth damage"
+	elif att == ATT.INCREASED_LIGHTNING_DAMAGE:
+		return "increase lightning damage"
+	elif att == ATT.MORE_PHYSICAL_DAMAGE:
+		return "more physical damage"
+	elif att == ATT.MORE_ETHEREAL_DAMAGE:
+		return "more ethereal damage"
+	elif att == ATT.MORE_FIRE_DAMAGE:
+		return "more fire damage"
+	elif att == ATT.MORE_WATER_DAMAGE:
+		return "more water damage"
+	elif att == ATT.MORE_EARTH_DAMAGE:
+		return "more earth damage"
+	elif att == ATT.MORE_LIGHTNING_DAMAGE:
+		return "more lightning damage"
+	elif att == ATT.ARMOR:
+		return "armor"
+	elif att == ATT.EVASION:
+		return "evasion"
+	elif att == ATT.SOUL_SHIELD:
+		return "soul shield"
+	elif att == ATT.INCREASED_ARMOR:
+		return "increase armor"
+	elif att == ATT.INCREASED_EVASION:
+		return "increase evasion"
+	elif att == ATT.INCREASED_SOUL_SHIELD:
+		return "increase soul shield"
+	elif att == ATT.MORE_ARMOR:
+		return "more armor"
+	elif att == ATT.MORE_EVASION:
+		return "more evasion"
+	elif att == ATT.MORE_SOUL_SHIELD:
+		return "more soul shield"
+	elif att == ATT.SPEED:
+		return "speed"
+
 func combine_attributes(att:Attributes) -> Attributes:
 	var out:Attributes = Attributes.new()
 	
-	out.current_health = att.current_health + current_health
 	out.max_health = att.max_health + max_health
 	out.stamina = att.stamina + stamina
 	out.mana = att.mana + mana
@@ -265,3 +330,20 @@ func combine_attributes(att:Attributes) -> Attributes:
 	out.speed = att.speed + speed
 	
 	return out
+
+func get_damage():
+	var damage_info = DamageInfo.new()
+	damage_info.physical_damage = physical_damage * increase_physical_damage * more_physical_damage
+	damage_info.water_damage = water_damage * increase_water_damage * more_water_damage
+	damage_info.fire_damage = fire_damage * increase_fire_damage * more_fire_damage
+	damage_info.earth_damage = earth_damage * increase_earth_damage * more_earth_damage
+	damage_info.lightning_damage = lightning_damage * increase_lightning_damage * more_lightning_damage
+	
+	return damage_info
+	
+	
+	
+	
+	
+	
+	
