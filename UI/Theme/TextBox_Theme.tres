@@ -1,12 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://c5fivnrv1ywn1"]
-
-[ext_resource type="Texture2D" uid="uid://khjwahohgn3p" path="res://Assets/Cryo's Mini UI/GUI/GUI_4x.png" id="1_bpgoc"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_klekw"]
-atlas = ExtResource("1_bpgoc")
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c5fivnrv1ywn1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cso8v"]
-texture = SubResource("AtlasTexture_klekw")
 
 [resource]
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_cso8v")

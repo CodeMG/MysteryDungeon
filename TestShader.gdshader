@@ -1,11 +1,13 @@
 shader_type canvas_item;
-//render_mode blend_add;
 uniform float width = 16.0f;
 uniform float height = 16.0f;
 
 uniform sampler2D noise_tex:repeat_enable;
 uniform sampler2D gradient_tex;
 uniform sampler2D screen_texture:hint_screen_texture;
+
+uniform vec4 color_0:source_color;
+uniform vec4 color_0_replacement:source_color;
 
 float f(float x,float offset){
 	return sin(x+TIME*5.0)+offset;
@@ -68,12 +70,18 @@ void fragment() {
 	vec4 noise = texture(noise_tex,UV);
 	vec4 gradient = texture(gradient_tex,UV);
 	
-	COLOR = texture(TEXTURE,UV);
+	vec4 tex = texture(screen_texture,SCREEN_UV);
+	vec4 final = vec4(1.0-tex.xyz,1.0);
+	//COLOR = final;
+	
+	if(length(COLOR - color_0) < 0.0001){
+		COLOR = color_0_replacement;
+	} 
 }
 
-void light(){
-	vec3 texture_diff = texture(screen_texture,SCREEN_UV).rgb-texture(TEXTURE,UV).rgb * -1.0;
-	LIGHT  = vec4(texture_diff,1.0);
-	LIGHT = texture(screen_texture,SCREEN_UV)*LIGHT_COLOR;
-	//LIGHT = LIGHT_COLOR;
-}
+//void light(){
+//	vec3 texture_diff = texture(screen_texture,SCREEN_UV).rgb-texture(TEXTURE,UV).rgb * -1.0;
+//	LIGHT  = vec4(texture_diff,1.0);
+//	LIGHT = texture(screen_texture,SCREEN_UV)*LIGHT_COLOR;
+//	//LIGHT = LIGHT_COLOR;
+//}

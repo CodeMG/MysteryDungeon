@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqkjliqhk246e"]
-
-[ext_resource type="Texture2D" uid="uid://d25jej3ywbot" path="res://icon.svg" id="1_l4t16"]
-
-[node name="TextureButton" type="TextureButton"]
-offset_right = 40.0
-offset_bottom = 40.0
-texture_normal = ExtResource("1_l4t16")
